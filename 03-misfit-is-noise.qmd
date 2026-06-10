@@ -1,0 +1,257 @@
+---
+title: "The 'misfit' rater is a coin flip"
+---
+
+Chapter 3 is one of the more technically ambitious parts of the study: it builds
+inaccuracy directly into the data-generating model rather than gesturing at it. This
+chapter concerns a single modeling choice inside that design that, once adjusted,
+strengthens the journal version. The relevant pages are 55–58.
+
+## What the dissertation does
+
+To create a "generally inaccurate" or misfitting rater, the simulation adds a rater
+slope (discrimination) parameter $\alpha$ to the data-generating MFRM (Equation 7,
+introduced p. 55). Normal raters get $\alpha = 1$ — the standard Rasch assumption.
+Inaccurate raters take a decisive step: "we manipulated the slope parameter by **setting
+its mean to 0**, whereas the slope parameter for the normal raters was fixed at 1"
+(p. 57). The rationale is that "when raters have lower slopes, they exhibit less
+discrimination between examinees" (p. 57), and this third condition is labeled "general
+inaccuracy (i.e., misfit or haphazard ratings)" (p. 57). On the HRM side, "rater misfit
+can be broadly interpreted as rater variability and is reflected in the psi parameter"
+(p. 58).
+
+The intuition is sound — a rater who cannot tell high-ability from low-ability examinees
+is, in a real sense, inaccurate. The question is how far the design takes that intuition:
+all the way to $\alpha = 0$.
+
+## Why this threatens the conclusion
+
+Consider what a slope of exactly zero does, worked out from Equation 7. In the
+adjacent-category model, the log-odds of category $k$ over category $k-1$ is
+$\alpha$ times the usual Rasch term. Set $\alpha = 0$ and **every** one of those
+log-odds collapses to zero at once — which forces all five categories to probability
+exactly $0.20$. The distribution is perfectly uniform, independent of the examinee's
+ability, the item, and even the rater's own severity $\lambda$ (because $\lambda$ is
+multiplied by $\alpha$, and anything times zero is zero). The rater is, quite literally,
+rolling a five-sided die.
+
+One point is worth stating plainly, because the design is a little more careful
+than *every* misfit rater being a die. The slope *mean* is set to 0 — the misfit slopes
+are drawn from a distribution centered at zero (almost certainly $\alpha \sim N(0, 0.05)$,
+mirroring the normal raters' $N(1, 0.05)$), not pinned there. So $\alpha = 0$ is the
+**expected**, typical misfit rater — the case the algebra above describes — and individual
+misfit raters scatter around it: at the study's sample sizes their realized score-to-ability
+correlations spread by roughly $\pm 0.4$ (largely finite-sample noise plus the small slope
+spread), with a mean near zero. That refinement does not soften the point — it sharpens
+it. Because the *mean* slope is 0, the condition is centered on the no-signal case: on
+average these raters carry no ability signal, so the inflated fit is still the expected,
+mechanical consequence — a positive control, not evidence of sensitivity to realistic
+inaccuracy. The accurate claim is that the *typical* misfit rater is a coin flip, not that
+every one is exactly uniform.
+
+Equation 7 was re-implemented from scratch in R — not a re-run of TAM, but a
+ground-up reconstruction — and confirmed. @fig-misfit-noise makes it concrete. Panel
+A puts the two raters side by side: the accurate rater ($\alpha = 1$) produces a peaked,
+ability-tracking distribution with a score-to-ability correlation of about **0.88**; the
+"inaccurate" rater ($\alpha = 0$) produces five equal bars at $0.20$, with a correlation
+of about **0.00**. These are not two points on a quality continuum — they are
+qualitatively different things. Panel B sweeps the slope from 1 down to 0 and shows the
+MFRM infit/outfit rising smoothly from $\approx 1.0$ to $\approx 3.5$–$4.3$, passing
+straight through the dissertation's reported misfit band ($\approx 2.0$–$3.2$). The
+inflated fit is a *mechanical consequence of the slope knob*, not a discovery.
+
+```{r}
+#| label: fig-misfit-noise
+#| fig-cap: "A 'misfit' rater is a coin flip. **(A)** With the slope set to 0, the rater's five categories are essentially equally likely (≈ 0.20 each) and the score-to-ability correlation is ≈ 0 — versus a peaked, ability-tracking profile (r ≈ 0.88) for an accurate rater. **(B)** Turning the data-generating slope α from 1 (accurate) down to 0 (misfit) makes the MFRM fit mean-square rise smoothly from ≈ 1.0 through the dissertation's reported misfit band (≈ 2.0–3.2). The inflated fit is a deterministic function of the slope, not a finding."
+#| fig-width: 9
+#| fig-height: 4
+#| code-summary: "Show the R code (implements the dissertation's Eq. 7 from scratch)"
+suppressPackageStartupMessages({ library(ggplot2); library(patchwork) })
+source("R/common.R")
+
+set.seed(20260609)
+N_EX <- 500L; I <- 5L; delta <- rnorm(I, 0, 0.5)
+
+one_rater_observed <- function(theta, alpha, lam = 0) {
+  obs <- matrix(0L, length(theta), I)
+  for (i in seq_len(I)) obs[, i] <- simulate_rating(pcmfrm_probs(theta, lam, delta[i], alpha = alpha))
+  obs
+}
+oracle_fit <- function(theta, observed) {              # scored vs the slope-1 analysis model
+  z2 <- var <- numeric(0)
+  for (i in seq_len(I)) {
+    p <- pcmfrm_probs(theta, 0, delta[i], alpha = 1); ex <- expected_score(p); v <- pmax(score_variance(p), 1e-9)
+    z2 <- c(z2, (observed[, i] - ex)^2 / v); var <- c(var, v)
+  }
+  list(infit = sum(z2 * var) / sum(var), outfit = mean(z2))
+}
+
+# ---- Panel A: accurate vs misfit category frequencies -----------------------
+theta_A <- rnorm(N_EX)
+obs_norm <- one_rater_observed(theta_A, 1); obs_mis <- one_rater_observed(theta_A, 0)
+freq_norm <- tabulate(as.integer(obs_norm) + 1L, K) / length(obs_norm)
+freq_mis  <- tabulate(as.integer(obs_mis)  + 1L, K) / length(obs_mis)
+r_norm <- cor(rowSums(obs_norm), theta_A); r_mis <- cor(rowSums(obs_mis), theta_A)
+
+dfA <- rbind(data.frame(rater = "Accurate rater (slope = 1)", k = factor(CATS), freq = freq_norm),
+             data.frame(rater = "Misfit rater (slope = 0)",  k = factor(CATS), freq = freq_mis))
+dfA$rater <- factor(dfA$rater, levels = c("Accurate rater (slope = 1)", "Misfit rater (slope = 0)"))
+annA <- data.frame(rater = factor(levels(dfA$rater), levels = levels(dfA$rater)),
+                   label = c(sprintf("r = %.2f", r_norm), sprintf("r = %.2f", r_mis)))
+pA <- ggplot(dfA, aes(k, freq, fill = rater)) +
+  geom_col(width = .7, colour = "white") +
+  geom_hline(yintercept = .2, linetype = "dashed", colour = "grey40", linewidth = .7) +
+  annotate("text", x = .65, y = .215, label = "Uniform 1/5", hjust = 0, size = 2.9,
+           colour = "grey35", fontface = "italic") +
+  geom_text(data = annA, aes(x = 4.45, y = .37, label = label), inherit.aes = FALSE,
+            hjust = 1, size = 3.5, fontface = "bold",
+            colour = c(unname(pal_companion["accent"]), unname(pal_companion["misfit"]))) +
+  facet_wrap(~ rater) +
+  scale_fill_manual(values = c("Accurate rater (slope = 1)" = unname(pal_companion["accent"]),
+                               "Misfit rater (slope = 0)"  = unname(pal_companion["misfit"])), guide = "none") +
+  scale_y_continuous(limits = c(0, .45), breaks = seq(0, .4, .1),
+                     labels = c("0", ".10", ".20", ".30", ".40"), expand = c(0, 0)) +
+  labs(title = "(A)  The 'misfit' rater is a coin-flip",
+       subtitle = "slope = 0  →  every category equally likely; no signal about ability",
+       x = "Rating category (0–4)", y = "Relative frequency") +
+  theme_companion(11) + theme(strip.text = element_text(face = "bold", size = 9.5),
+                              strip.background = element_blank(), panel.spacing = unit(1.2, "lines"),
+                              plot.subtitle = element_text(colour = "grey40", size = 9),
+                              panel.grid.major.x = element_blank())
+
+# ---- Panel B: fit MSE vs slope ----------------------------------------------
+set.seed(20260610)
+alphas <- seq(0, 1, .1); n_rep <- 60L
+sweep <- do.call(rbind, lapply(alphas, function(a) {
+  fr <- replicate(n_rep, { th <- rnorm(N_EX); ob <- one_rater_observed(th, a); f <- oracle_fit(th, ob)
+                           c(f$infit, f$outfit, cor(rowSums(ob), th)) })
+  data.frame(alpha = a, infit = mean(fr[1, ]), outfit = mean(fr[2, ]), r = mean(fr[3, ]))
+}))
+dfB <- rbind(data.frame(alpha = sweep$alpha, value = sweep$infit, stat = "Infit MSE"),
+             data.frame(alpha = sweep$alpha, value = sweep$outfit, stat = "Outfit MSE"))
+pB <- ggplot(dfB, aes(alpha, value, colour = stat)) +
+  annotate("rect", xmin = -Inf, xmax = Inf, ymin = 2.0, ymax = 3.2, fill = "#C0392B", alpha = .08) +
+  annotate("text", x = .82, y = 2.6, label = "dissertation's\nmisfit band\n(2.0–3.2)", hjust = 1,
+           size = 2.8, colour = "#C0392B", lineheight = .95, fontface = "italic") +
+  geom_hline(yintercept = 1, linetype = "dashed", colour = "grey50", linewidth = .6) +
+  annotate("text", x = .9, y = 1.28, label = "expected fit = 1.0", hjust = 1, size = 2.9,
+           colour = "grey45", fontface = "italic") +
+  geom_line(linewidth = 1.2) + geom_point(size = 2.5) +
+  annotate("text", x = .97, y = .55, label = sprintf("r = %.2f", sweep$r[sweep$alpha == 1]),
+           hjust = 1, size = 3, colour = "grey30", fontface = "bold") +
+  annotate("text", x = .03, y = .55, label = sprintf("r = %.2f", sweep$r[sweep$alpha == 0]),
+           hjust = 0, size = 3, colour = "grey30", fontface = "bold") +
+  scale_colour_manual(name = NULL, values = c("Infit MSE" = unname(pal_companion["misfit"]),
+                                              "Outfit MSE" = unname(pal_companion["severe"]))) +
+  scale_x_reverse(breaks = seq(0, 1, .2), labels = c("0\n(misfit)", ".2", ".4", ".6", ".8", "1\n(accurate)")) +
+  scale_y_continuous(limits = c(0, 6), breaks = 0:6, expand = c(0, 0)) +
+  labs(title = "(B)  'Inaccuracy' is just a signal-to-noise knob",
+       subtitle = "MFRM fit rises deterministically as the slope drops — a positive control, not evidence of sensitivity",
+       x = "Data-generating slope α (rater discrimination)", y = "Fit MSE (infit / outfit)") +
+  coord_cartesian(clip = "off") +
+  theme_companion(11) + theme(plot.subtitle = element_text(colour = "grey40", size = 9),
+                              legend.position = "bottom", panel.grid.minor = element_blank())
+
+pA | pB
+```
+
+Three threats follow, and they compound.
+
+**Detection is trivialized.** A pure-noise rater whose scores carry *zero* information is
+not a realistic model of human inaccuracy. Real raters who are inconsistent, fatigued, or
+idiosyncratic still have *some* slope — they discriminate imperfectly, not randomly. So
+the reported detection rates are for an extreme case any reasonable index can flag, not
+for the realistic inaccuracy a reviewer cares about.
+
+**Severity becomes unidentifiable.** Because $\lambda$ is multiplied by zero, the severity
+of an $\alpha = 0$ rater has no influence on the data and cannot be estimated. This is the
+*same* manipulation that, in Chapter 1, leaves the HRM's $\psi$ with no finite value — so
+Chapters 1 and 3 are two faces of one design choice. Naming that link explicitly
+strengthens both.
+
+**The MFRM has a home-field advantage.** Infit and outfit measure deviation from the Rasch
+model — and the misfit data were made by taking a Rasch/MFRM structure and *erasing* it
+($\alpha = 0$). Asking the MFRM to notice that its own structure has been removed is not a
+neutral test of detection power; it is a model recognizing its own data. A reviewer will
+see this at once.
+
+And the advantage is not confined to these misfit cells — it runs through all of Study 2.
+Every condition, None and Severity no less than Misfit, is generated from the same adapted
+MFRM of Equation 7; the fitted MFRM is that very model with the slope switched off, while
+the HRM, whose first stage is a GPCM, must recover from a rival model's data. So the MFRM is
+always playing at home. The dissertation anticipated exactly this: its Purpose
+states that "*rather than comparing the two models directly*, we aim to examine the
+different patterns each model exhibits under various conditions" (p. 48), and that framing
+genuinely defuses the concern — a study of how *each* model behaves on its own terms is not
+a rigged head-to-head. The catch is that the conclusions
+still read comparatively in places — which model is *more* sensitive, and where — and the
+instant a comparison is drawn, the home-field tilt is back. The clean way to keep the
+comparative payoff without the tilt is the cross-generative design already in the Fix-it:
+generate from each model and score with both, so any remaining comparison is symmetric and
+neither model is graded on its home turf.
+
+There is also an internal tension. The dissertation's review chapter stresses that
+fit statistics are **non-specific** — a high infit/outfit can come from inconsistency,
+halo, central tendency, range restriction, criterion bias, or model misspecification, not
+only from haphazard noise (the dissertation says so, p. 58). Yet Chapters 3–4 read a
+*rise in fit* directly as "inaccuracy detection." Under known simulation truth that is
+fine; but it means the detection claim is conditional on the truth being pure-noise —
+exactly the specificity the review warns cannot be assumed in practice.
+
+::: {.callout-note}
+## The strongest counterargument
+
+Setting the misfit slope mean to 0 was not an oversight — it was a
+*deliberate, clean stress test*. To verify that the fit indices can detect inaccuracy at
+all, the disciplined first move is to hand them the most extreme, least ambiguous case and
+confirm they fire; if an index failed even *here*, it would fail everywhere. Choosing the
+limiting case to establish that floor is sound design in the tradition of a positive
+control, not a belief that real raters roll dice.
+
+And yet — $\alpha = 0$ is a legitimate
+*positive control*, and Panel B's smooth slope-to-fit curve is genuinely reassuring. What a
+positive control establishes, though, is only that the index fires in the limit; it cannot,
+by itself, license the broader claim that the indices are sensitive to the inaccuracy raters
+show *in practice* — halo, central tendency, partial mis-discrimination ($\alpha = 0.2, 0.5,
+0.8$), criterion bias. $\alpha = 0$ stays as the anchor; the revision adds those
+realistic mechanisms alongside it and scopes the conclusion to match — "the indices flag a
+pure-noise rater" is proven now, "the indices detect realistic inaccuracy" needs the
+realistic cases to earn it.
+:::
+
+## What would fix it
+
+::: {.callout-tip}
+## Fix-it
+- **Widen the inaccuracy operationalization.** Replace the single $\alpha = 0$ point with
+  partial reductions ($\alpha = 0.2, 0.5, 0.8$) *and* mechanisms drawn from the
+  literature the review synthesizes: threshold/category-usage distortion, central
+  tendency, extremity, criterion- or subgroup-specific bias, and mixture (occasional)
+  noise. These give *detection curves* over realistic raters, not one extreme point.
+- **Use a neutral, cross-generative design.** Generate from a third model that is neither
+  the MFRM nor the HRM (or cross the two symmetrically — generate from each, score with
+  both), so neither model is graded on its home turf and a genuine comparison is possible.
+- **Reconcile with the non-specificity point.** Add a Discussion sentence acknowledging
+  that elevated fit is *consistent with* — not *diagnostic of* — inaccuracy versus other
+  effects, and frame the rates as "sensitivity to a pure-noise pattern."
+- **Scope the current result honestly.** One sentence: the present finding shows the
+  indices can flag a rater whose scores are informationally empty. That is real and
+  useful — it just needs the right frame.
+:::
+
+## What a reviewer will ask
+
+::: {.callout-warning}
+## What a reviewer will ask
+"Is a slope of zero — pure uniform noise — a valid operationalization of 'general
+inaccuracy'? Human raters who are inattentive or inconsistent still carry *some*
+information about examinees. And since infit/outfit measure deviation from the very Rasch
+model that generated the data, how do you separate the MFRM's structural advantage from a
+genuine finding — would the same rates hold under a model-neutral generating process?"
+:::
+
+A careful reviewer will not be hostile here — they will likely admire the design and want
+its bounding conditions. The strongest move is to preempt them: state that $\alpha = 0$ is
+an extreme case, show (Panel B) that the slope-to-fit relationship is smooth and
+continuous, and offer the cross-generative extension. Reviewers reward authors who have
+already thought the critique through — and the revisions above do exactly that.

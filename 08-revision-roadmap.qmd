@@ -1,0 +1,118 @@
+---
+title: "A minimal-revision roadmap (and the questions to expect)"
+---
+
+The dissertation is done, and the committee approved it. What follows is not a verdict on
+that work — it is a runway for what comes next. The central arguments about MFRM and HRM
+*sensitivity* and *robustness* are worth publishing; the only question is how to present
+them so a peer reviewer — who has not met the author and will read quickly — cannot find a
+foothold for doubt. This chapter pulls the seven critique chapters into one sequenced plan,
+then gathers the questions a reviewer is most likely to ask.
+
+## The minimum that lets the central conclusions stand
+
+The headline claims do not require new data. They require tighter grounding in what the
+reported numbers actually measure. None of what follows requires collecting a single new
+rating or rebuilding a study from scratch — every fix is a targeted addition or a reframing:
+better diagnostics where the estimation went unchecked, cleaner operationalizations where
+the manipulations drifted from their definitions, and modest housekeeping where the
+reporting left questions open. The architecture of both simulation studies (the
+dissertation's Chapters 3 and 4) is sound; tighten the scaffolding and the same intellectual
+argument becomes airtight.
+
+## A sequenced plan
+
+*("Ch." below refers to the chapters of **this companion**, not the dissertation; the order
+follows logical dependency rather than chapter number.)*
+
+Work in this order, because each tier clears the ground for the next. **Tier 1 comes first**
+because if "sensitivity" is measuring the wrong thing (a) or the HRM estimates are unstable
+(b), none of the other numbers can be interpreted at all. **Tier 2** then fixes what the
+manipulations actually estimate, and **Tier 3** is genuine housekeeping — real, but not
+blocking.
+
+### Tier 1 — Reframe and re-estimate (highest leverage)
+
+1. **(a) Re-operationalize "sensitivity" as detection.** For every condition, report TPR,
+   FPR, and ROC-AUC at the cut score (and parameter recovery), with **both** normal and
+   effect raters in the analysis so the false-positive rate is visible; retire or explicitly
+   justify the η² ≥ .01 bar. This single move reframes both studies and answers the most
+   fundamental objection (Ch. 5). *Effort: medium — one analysis pass, no new simulation.*
+2. **(b) Re-estimate the HRM with adequate MCMC.** Run ≥ 4 independent chains with a longer
+   warm-up; report R-hat, bulk/tail ESS, and MCSE for φ and ψ in every condition; do a
+   prior-sensitivity check with a log-scale prior for ψ; and flag the misfit ψ as
+   *non-estimable* rather than reporting a sampler-generated value (Ch. 1 + Ch. 4).
+   *Effort: higher — re-running estimation is the bottleneck; the model itself does not change.*
+3. **(c) Diagnose the severe-location collapse.** Show parameter recovery (bias, RMSE,
+   coverage) for the severe-rater location against its generating value condition by
+   condition; audit the centering constraint; and disentangle the sample-size confound
+   (N, rater count, and effect-rater count move together). If a one-line centering fix
+   corrects it, document that transparently (Ch. 2). *Effort: low–medium.*
+
+### Tier 2 — Re-operationalize the manipulations
+
+4. **(d) Replace α = 0 "misfit" with a realistic range.** A zero slope is a uniform random
+   rater, not a noisy human; use a slope gradient (e.g., α ∈ {0.8, 0.5, 0.2}) plus a halo or
+   central-tendency mechanism, and add a **neutral cross-generative** cell so neither model
+   is graded on home turf (Ch. 3). *Effort: higher — new simulation cells, same framework.*
+5. **(e) Re-manipulate local dependence on the residual scale.** Compute the realized
+   *residual* correlation per condition; the marginal LI baseline depends on the unit (≈ 0.79
+   per total score, ≈ 0.43 per item), so 0.2 injects *negative* residual dependence while 0.6
+   is a genuine positive violation under the "among items" reading (0.9 on either) — re-manipulate
+   on the residual scale (a shared rater-pair random effect or copula) and re-scope the "MFRM is
+   robust" claim to the conditions that are genuine violations (Ch. 6). *Effort: medium.*
+
+### Tier 3 — Housekeeping
+
+6. **(f) Reconcile the condition count and release the log.** Resolve whether the grid is
+   3⁴ = 81 or 4 × 3³ = 108, trace the stray n = 900, and make the condition log /
+   simulation code available as supplementary material (Ch. 7). *Effort: low.*
+7. **(g) Analyze at the replicate level.** Replace per-indicator ANOVAs that ignore
+   clustering with replicate-level summaries or a mixed-effects model, and either justify
+   η² ≥ .01 against a detection baseline or replace it (Ch. 7). *Effort: low–medium.*
+8. **(h) Double-code ~20% of the systematic-review articles.** Have a second coder apply the scheme
+   independently and report Cohen's κ (or Krippendorff's α) — additive, but expected
+   (Ch. 7). *Effort: low.*
+
+## The questions to expect, gathered
+
+| Chapter | The sharpest question a reviewer will ask |
+|---|---|
+| **1** — ψ identifiability | "In what sense is a reported ψ of 16–32 an estimate, given the profile likelihood is flat for ψ ≳ 5 — and why average a non-estimable quantity into an ANOVA?" |
+| **2** — Location collapse | "Why does the severe-rater location fall monotonically with N when more data should stabilize it? Show recovery vs. true values, condition by condition." |
+| **3** — Misfit operationalization | "Is a slope of 0 (uniform noise) a valid model of inaccuracy, and how do you separate the MFRM's generate-equals-fit advantage from a real finding?" |
+| **4** — MCMC adequacy | "What are the ESS and MCSE of φ and ψ at 700 draws from one chain — are the interpreted differences actually larger than the MCSE? How was R-hat computed from one chain?" |
+| **5** — Sensitivity definition | "Your definition is detection — why report η² of means on effect raters only, not TPR/FPR/ROC-AUC at your cut? And why is η² ≥ .01 'practical' when it is near-chance?" |
+| **6** — Dependence scale | "The marginal LI baseline depends on the unit (≈ 0.79 per total score, ≈ 0.43 per item); under the 'among items' reading, 0.2 is below it (not a violation) while 0.6 and 0.9 are genuine violations. Which scale were the targets on — and can a null be read as robustness? Report the residual correlation per condition." |
+| **7** — Housekeeping | "Are there 81 or 108 conditions — can you supply the full grid? And what is the inter-coder reliability for the systematic-review coding?" |
+
+## Why this is worth doing
+
+Each item on this list is a methodological strength waiting to be unlocked. Reviewers do
+not reward authors who anticipated no criticism; they reward authors who have already
+thought the critique through and answered it in the manuscript. Reporting ROC-AUC
+beside η² is not a concession of weakness — it demonstrates command of the
+detection-theoretic foundations of the construct. Running four chains and reporting
+R-hat is not an apology for the dissertation — it demonstrates what adequate
+MCMC looks like. Documenting the centering audit turns a potential confound into a
+finding in its own right. The revised studies stop being merely *plausible* — where a reader
+must trust the setup — and become *persuasive*, where a skeptical reader can check the work
+and find it standing.
+
+The hardest part is already done: two original simulation studies were designed and run, a
+systematic review completed, and a full dissertation written. The revisions ahead
+are, by comparison, targeted and finite — and every simulation study in the top measurement
+journals went through exactly this kind of sharpening. The architecture of the work is sound,
+and the central conclusions are reachable from it.
+
+::: {.callout-tip}
+## The eight-item checklist
+- [ ] **(a)** Ch. 5 — Report TPR / FPR / ROC-AUC (+ recovery); include normal *and* effect raters; retire or justify η² ≥ .01
+- [ ] **(b)** Ch. 1 + 4 — Re-run HRM: ≥ 4 chains, longer warm-up, report R-hat / ESS / MCSE, prior sensitivity on ψ, flag ψ non-estimable for noise raters
+- [ ] **(c)** Ch. 2 — Recovery (bias / RMSE / coverage) for severe-rater location per condition; centering audit; disentangle the N–rater-count confound
+- [ ] **(d)** Ch. 3 — Replace α = 0 with a slope gradient + realistic mechanisms; add neutral cross-generative cells
+- [ ] **(e)** Ch. 6 — Report realized residual correlation per condition; re-manipulate on the residual scale; re-scope the "robust" claim
+- [ ] **(f)** Ch. 7 — Reconcile 81 vs. 108 (+ n = 900); release the condition log
+- [ ] **(g)** Ch. 7 — Replicate-level / mixed-effects analysis; justify or replace η² ≥ .01
+- [ ] **(h)** Ch. 7 — Double-code ~20% of the systematic-review articles; report Cohen's κ
+:::

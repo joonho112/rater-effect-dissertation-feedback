@@ -1,0 +1,255 @@
+---
+title: "Local dependence: marginal correlation vs. residual correlation"
+---
+
+Chapter 4 takes seriously a threat (rater dependence) that most applied MFRM studies
+ignore, and builds a simulation to probe it. The revision concerns sharpening the
+interpretation so the study says precisely what it shows, and no more. The relevant pages
+are 76–90.
+
+## What the dissertation does
+
+Local independence — in Yen's (1993) formulation, as quoted on page 76 — is a
+property of *residual* correlations: a pair of scores is locally independent when they are
+"independent after controlling for the latent variable." In a many-facet Rasch context
+that means two raters' scores on the same examinees should be uncorrelated *once examinee
+ability, rater severity, and item difficulty have been accounted for*. The residual is
+whatever shared signal remains after the model has explained what it can.
+
+Chapter 4 asks whether MFRM indices are sensitive to violations of that property. The
+design on page 84 selects rater pairs so that about 20% of raters belong to a correlated
+pair, then "replaced one rater's scores with values that had a specific correlation with
+their partner's scores" at three target levels — 0.2, 0.6, and 0.9 — describing this as
+reflecting "Yen's (1993) definition of local independence as low correlations among items
+after controlling for examinee ability" (pp. 84–85). The result, on page 90, is that "the
+practical impact of rater dependence was minimal across conditions, suggesting that the
+MFRM is robust to this type of potential local independence violation."
+
+The logic is clean and the implementation careful. The one problem is that the manipulation
+operates on a **marginal** (raw, unconditional) correlation between the two raters' scores —
+not on the **residual** correlation the conclusion invokes. And because that marginal baseline
+depends on the unit (total score vs. single item), even the *sign* of the dependence some
+conditions impose turns out to be ambiguous.
+
+## Why this threatens the conclusion
+
+Start from first principles. Imagine two raters, A and B, scoring the same pool of
+examinees independently — no consultation, no shared bias. Under perfect local independence
+their *residual* correlation is zero by definition. Yet both are doing the same job: each
+tracks examinee ability. When ability is high, both tend to award higher scores; when it is
+low, both score lower. That shared pull from the latent variable creates a positive
+*marginal* correlation between A and B even when they are perfectly locally independent.
+
+Think of two thermometers hanging in the same room. Neither influences the other, but both
+respond to the room temperature, so their readings move together. The correlation is not
+evidence of dependence *between the thermometers* — it is evidence of the shared
+environment they both measure. Rater A and rater B are two thermometers; examinee ability
+is the room.
+
+The magnitude was verified by simulating two locally-independent partial-credit MFRM raters
+scoring the same examinees in R — not a re-run of TAM, but a ground-up construction.
+Under perfect local independence the marginal correlation of their total scores was about
+**0.79** — and of their ratings on a single shared item, about **0.43** — while a residual
+correlation after partialling out ability was about **0.03**, indistinguishable from zero.
+That ≈ 0.03 is a *simplified illustration* of the residual idea — the partial correlation of
+the two raters' total scores given ability — rather than Yen's Q3 itself: Yen's (1993) Q3
+proper correlates the *item-level residuals from the fitted model* (observed minus
+model-expected for each person × item) across item or rater pairs. The illustration still
+makes the point — under local independence the residual sits near zero — but a real check
+would report Q3. Both marginal numbers matter; the targets land
+differently against each. @fig-dependence makes
+the geometry visible.
+
+```{r}
+#| label: fig-dependence
+#| fig-cap: "Marginal correlation is not local dependence — and the baseline depends on the unit. **(A)** Under *perfect* local independence, two raters scoring the same examinees are already correlated at ≈ 0.79 on their 5-item *total* scores but only ≈ 0.43 on the *same single item* (the unit Yen's 'low correlations among items' names). Read against both baselines, the targets split three ways: 0.2 falls below *both* (reaching it needs *negative* residual dependence — the opposite of a violation); 0.9 sits above *both* (a genuine positive violation); and 0.6 sits *between* them — above the item baseline but below the total — so its verdict depends on scale, a genuine positive violation under the item/rating reading the 'among items' wording implies. **(B)** Under local independence the total-score marginal correlation is ≈ 0.79 but the residual correlation given ability is ≈ 0.03 — and Yen's definition is about the residual (right) bar, not the marginal (left) one."
+#| fig-width: 9
+#| fig-height: 4
+#| code-summary: "Show the R code (two locally-independent raters; marginal vs residual)"
+suppressPackageStartupMessages({ library(ggplot2); library(patchwork) })
+source("R/common.R")
+set.seed(7)
+
+I <- 5L; N_EX <- 500L; N_REP <- 400L; TARGETS <- c(0.2, 0.6, 0.9)
+delta <- rnorm(I, 0, 0.5)
+
+partial_corr <- function(x, y, z) {                  # corr(x, y | z), z quadratic
+  Z <- cbind(1, z, z^2); cor(lm.fit(Z, x)$residuals, lm.fit(Z, y)$residuals)
+}
+two_rater_totals <- function(n) {                    # two LI raters, same examinees
+  th <- rnorm(n); l1 <- rnorm(1, 0, .5); l2 <- rnorm(1, 0, .5)
+  R1 <- R2 <- matrix(0, n, I)                        # per-item ratings, both raters
+  for (i in seq_len(I)) { R1[, i] <- simulate_rating(pcmfrm_probs(th, l1, delta[i]))
+                          R2[, i] <- simulate_rating(pcmfrm_probs(th, l2, delta[i])) }
+  list(t1 = rowSums(R1), t2 = rowSums(R2), theta = th, R1 = R1, R2 = R2)
+}
+marg <- res <- item_base <- numeric(N_REP)
+for (r in seq_len(N_REP)) { o <- two_rater_totals(N_EX)
+  marg[r] <- cor(o$t1, o$t2); res[r] <- partial_corr(o$t1, o$t2, o$theta)
+  item_base[r] <- mean(sapply(seq_len(I), function(i) cor(o$R1[, i], o$R2[, i]))) }
+baseline <- mean(marg); sdm <- sd(marg); mres <- mean(res); sdr <- sd(res)
+baseline_item <- mean(item_base)               # item/rating-level LI baseline ≈ 0.43
+
+# Panel A: sampling distribution of the marginal correlation under LI
+pA <- ggplot(data.frame(r = marg), aes(r)) +
+  annotate("rect", xmin = 0.08, xmax = baseline_item, ymin = -Inf, ymax = Inf,
+           fill = pal_companion[["severe"]], alpha = .07) +
+  annotate("rect", xmin = baseline_item, xmax = baseline, ymin = -Inf, ymax = Inf,
+           fill = pal_companion[["warn"]], alpha = .07) +
+  annotate("text", x = (0.08 + baseline_item)/2, y = 21, label = "below BOTH\n→ neg. residual",
+           vjust = 1, size = 2.6, colour = pal_companion[["severe"]], fontface = "italic", lineheight = .9) +
+  annotate("text", x = (baseline_item + baseline)/2, y = 21, label = "between baselines\n→ scale-dependent",
+           vjust = 1, size = 2.6, colour = pal_companion[["warn"]], fontface = "italic", lineheight = .9) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = .01, fill = pal_companion[["none"]],
+                 colour = "white", alpha = .85) +
+  geom_vline(xintercept = baseline_item, colour = pal_companion[["warn"]], linewidth = 1.1) +
+  geom_vline(xintercept = baseline, colour = pal_companion[["accent"]], linewidth = 1.1) +
+  annotate("text", x = baseline_item - .012, y = 14, hjust = 1, size = 2.7, fontface = "bold",
+           colour = pal_companion[["warn"]], label = sprintf("item baseline\nr ≈ %.2f", baseline_item)) +
+  annotate("text", x = baseline + .012, y = 16, hjust = 0, size = 2.7, fontface = "bold",
+           colour = pal_companion[["accent"]], label = sprintf("total baseline\nr ≈ %.2f", baseline)) +
+  geom_vline(xintercept = TARGETS, linetype = "dashed",
+             colour = c(pal_companion[["severe"]], pal_companion[["warn"]], pal_companion[["misfit"]]), linewidth = 1) +
+  annotate("label", x = .2, y = 11, size = 2.6, fill = "white", colour = pal_companion[["severe"]],
+           label = "r = 0.2\nbelow both\n→ neg. residual") +
+  annotate("label", x = .58, y = 6, size = 2.6, fill = "white", colour = pal_companion[["warn"]],
+           label = "r = 0.6\nbetween → violation\nat item level") +
+  annotate("label", x = .9, y = 11, size = 2.6, fill = "white", colour = pal_companion[["misfit"]],
+           label = "r = 0.9\nabove both\n→ genuine violation") +
+  scale_x_continuous(breaks = seq(.2, 1, .2), limits = c(.06, .98)) +
+  scale_y_continuous(expand = expansion(mult = c(0, .05))) +
+  labs(title = "(A)  The LI baseline depends on the unit",
+       subtitle = "marginal corr(rater 1, rater 2) under perfect local independence (500 examinees, 400 reps)",
+       x = "marginal correlation between raters", y = "density") +
+  theme_companion(11) + theme(plot.subtitle = element_text(colour = "grey40", size = 8.5))
+
+# Panel B: marginal vs residual correlation
+barB <- data.frame(type = factor(c("marginal", "residual"), levels = c("marginal", "residual")),
+                   v = c(baseline, mres), lo = c(baseline - 2*sdm, mres - 2*sdr), hi = c(baseline + 2*sdm, mres + 2*sdr))
+pB <- ggplot(barB, aes(type, v, fill = type)) +
+  geom_col(width = .5, alpha = .85) +
+  geom_errorbar(aes(ymin = lo, ymax = hi), width = .12, colour = pal_companion[["none"]]) +
+  geom_text(aes(label = sprintf("%.3f", v)), vjust = -0.6, size = 4.3, fontface = "bold") +
+  annotate("label", x = 1.5, y = .45, size = 2.85, fill = "white", colour = pal_companion[["misfit"]],
+           label = "Yen (1993) dependence\n= the residual bar,\nnot the marginal one") +
+  annotate("segment", x = 1.78, xend = 1.93, y = .42, yend = mres + .07,
+           arrow = arrow(length = unit(.15, "cm"), type = "closed"), colour = pal_companion[["misfit"]], linewidth = .8) +
+  geom_hline(yintercept = 0, colour = "grey60", linewidth = .5) +
+  scale_fill_manual(values = c(marginal = unname(pal_companion[["none"]]), residual = unname(pal_companion[["misfit"]])), guide = "none") +
+  scale_x_discrete(labels = c(marginal = "marginal\ncor(T1, T2)", residual = "residual\n(given ability θ)")) +
+  scale_y_continuous(limits = c(-.05, 1), breaks = seq(0, 1, .2)) +
+  labs(title = "(B)  Marginal r ≈ 0.79;  residual r ≈ 0.03",
+       subtitle = "shared θ drives the marginal correlation", x = NULL, y = "correlation") +
+  theme_companion(11) + theme(plot.subtitle = element_text(colour = "grey40", size = 8.5))
+
+(pA | pB) + plot_layout(widths = c(1.5, 1))
+```
+
+The targets must be read against that baseline — but first *which* baseline must be decided, because it
+depends on the unit correlated. Two raters' **5-item total scores** are marginally
+correlated at ≈ **0.79** under perfect local independence; their ratings on the **same single
+item** are correlated at only ≈ **0.43**, because the shared-ability signal accumulates across
+five items while a lone ordinal rating carries far less of it. This distinction is decisive,
+because the dissertation fixes the unit at the item level: page 84 describes "replac[ing] one
+rater's scores," and pages 84–85 ground the design in "Yen's (1993) definition of local
+independence as low correlations *among items*." *Among items* — so the baseline that matters
+is the per-item one (≈ 0.43), not the total-score one (≈ 0.79).
+
+Read against both baselines, the three targets split three ways rather than two (Panel A):
+
+- **0.2** sits below *both* baselines. Reaching it requires injecting *negative* residual
+  correlation — suppressing the natural ability-driven co-movement, as if the raters were
+  *anti*-coordinated after controlling for ability. On either unit, this is the opposite of a
+  positive violation.
+- **0.9** sits above *both* baselines — a genuine positive violation on either reading.
+- **0.6** sits *between* the two: below the total-score baseline of 0.79, but above the
+  item-level baseline of 0.43. Its verdict therefore depends on the scale the manipulation
+  operated on. Read at the total-score level it would still imply mild *negative* residual
+  dependence; but read at the item/rating level — the reading the dissertation's own "among
+  items" wording implies — **0.6 is a genuine positive violation**, and a near-null MFRM
+  response would mean the model *absorbed* a real violation rather than that none was there.
+
+That cuts partly in the dissertation's favour. On the more defensible (item-level) reading, the 0.6 and 0.9
+conditions did impose genuine positive dependence, so a null result is not *merely* an
+artefact of removing co-movement. What the design still cannot settle is which scale was in
+force — the manipulation's unit was never stated, and the residual correlation that actually
+entered the MFRM was never measured. So a null result remains consistent with several stories
+(the MFRM is genuinely robust; the 0.2 condition imposed negative dependence and could never
+have flagged; or the raw-score replacement created an item-level structure the model quietly
+absorbed), and the data as they stand cannot tell them apart.
+
+There is a quieter issue too: overwriting one rater's scores with a constructed vector
+changes not just the pair correlation but that rater's score distribution and severity
+estimate — so the residual correlation that actually entered the MFRM (the quantity Yen's
+definition is about) was never directly measured.
+
+::: {.callout-note}
+## The strongest counterargument
+
+In the dissertation's defense, the manipulation follows Yen's (1993) "low correlations *among items*"
+framing directly — it is grounded in his definition and operates at the item level, the
+unit his wording names. It does genuinely move the rater-pair correlation; the conditions
+are not inert. And a near-null MFRM response is not nothing — it is positive, informative
+evidence about the model's robustness to the induced dependence.
+
+And yet — granted, and this cuts partly in the dissertation's favour: under the item-level reading, the
+0.6 and 0.9 conditions sit *above* the ≈ 0.43 baseline (Panel A) and so are genuine positive
+violations the MFRM apparently *absorbed*, which is a point in its favour, not against it.
+What the design cannot yet settle is the *cleanness* of the reading, for two stated reasons —
+the manipulation's scale was never declared, and the realized residual correlation that
+actually entered the MFRM was never measured. Until both are reported (ideally as Yen's Q3
+per condition), a flat result stays equally consistent with "the MFRM is robust" and with
+"the 0.2 condition imposed *negative* dependence that could never flag." Reporting the
+realized residual per condition is the one addition that turns an ambiguous null into a
+measured dose — and on the item-level reading, it likely settles the matter in the dissertation's favour.
+:::
+
+## What would fix it
+
+::: {.callout-tip}
+## Fix-it
+- **Report realized correlations at both scales.** Per condition, give (a) the realized
+  marginal correlation — at both the total-score and the item/rating level — and (b) the
+  realized *residual* correlation, also at both levels: Yen's **Q3** — the correlation of
+  *item-level residuals from the fitted MFRM* (observed minus model-expected per person ×
+  item) — which is the proper diagnostic, shown beside the total-score partial correlation
+  given ability (the ≈ 0.03 illustration above) for comparison. Q3 is the quantity that
+  settles each condition; the total-score partial is reported only so a reader can see the
+  two readings agree. This one addition lets a reviewer see where each condition truly sits.
+- **Re-manipulate on the residual scale.** Induce dependence directly in residual space — a
+  shared rater-pair random effect added to the log-odds (cleanest), a residual copula, a
+  testlet-style MFRM pair effect, or a training-group random effect — sweeping a known
+  residual correlation across, say, −0.3 to +0.5 around the LI baseline of 0.
+- **Separate two phenomena.** Repeated-ratings dependence (the same script scored twice) and
+  contextual dependence (a shared training cohort) have different residual structures;
+  distinguishing them sharpens the contribution.
+- **Compare with dependence-aware models.** Ask not only whether MFRM flags the dependence
+  but whether a rater-bundle model, random-effect facet model, testlet MFRM, or HRM recovers
+  parameters better when genuine positive residual dependence is present.
+- **Re-scope the conclusion.** State it as "MFRM indices changed little under this specific
+  score-replacement manipulation" — noting that on the item-level reading the 0.6 and 0.9
+  conditions plausibly *did* impose positive dependence the model absorbed — not "robust to
+  local-independence violations" in general.
+:::
+
+## What a reviewer will ask
+
+::: {.callout-warning}
+## What a reviewer will ask
+"Could you report the realized residual correlation given ability in each condition, and state
+the unit your target correlations were defined on? Two raters scoring the same examinees are
+already marginally correlated under perfect local independence — at ≈ 0.79 on their total
+scores, but only ≈ 0.43 on a single shared item. Since you cite Yen's 'low correlations *among
+items*,' the item-level baseline of ≈ 0.43 looks like the relevant one — and on that reading,
+0.2 sits below it (negative residual dependence, not a violation) while 0.6 and 0.9 sit *above*
+it and are genuine positive violations. Could you confirm which scale the manipulation operated
+on, and report the realized residual correlation per condition, so a null result can be read as
+'the MFRM absorbed real positive dependence' rather than left ambiguous?"
+:::
+
+Whether the MFRM holds up when raters are *not* independent is a question the field needs
+answered, and this study builds the machinery to answer it. The fix is small relative to the idea —
+move the manipulation onto the residual scale, report the residual correlation actually
+induced, and let the conclusion follow. Done that way, this becomes a *stronger* paper than
+a clean null would have been: a study that pins down precisely how much residual dependence
+the MFRM can absorb, with the dose measured on the scale Yen actually defined.

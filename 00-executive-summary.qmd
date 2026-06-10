@@ -1,0 +1,43 @@
+# Executive summary {.unnumbered}
+
+The whole book turns on one sentence:
+
+> *My concern is almost never that a limitation went unmentioned; it is whether the numbers
+> that are reported can carry the interpretation placed on them.*
+
+Below is every concern on one page, ordered hardest-to-defend first. Each links to a full
+chapter with the four-part treatment (what the dissertation does → why it threatens the
+conclusion → what would fix it → what a reviewer will ask). **The dissertation is complete
+and defensible as it stands**; this is a map for the *journal* version of Studies 2 and 3.
+
+| # | Concern | Severity | What is at stake (one verified number) | The one-line fix |
+|---|---|---|---|---|
+| 1 | **The HRM's ψ is not identified** for misfit raters | 🔴 Critical · *must-ask* | For a noise rater the profile likelihood is flat above ψ ≈ 5, so the reported ψ ≈ 16–32 are not identified — weakly-determined summaries, not estimates (ψ = 30 sets the SDM spread parameter to ~7× the width of the 0–4 scale) | Treat misfit ψ as non-estimable; log-scale + regularizing prior; report ESS/MCSE and prior sensitivity |
+| 2 | **The severe-rater location collapses** with sample size | 🔴 Critical · *must-ask* | Reported severe location *falls* 1.61 → 0.62 → 0.26 as N grows, while an independent MFRM recovers a stable ≈ 1.5–2.0 — pointing to a pipeline/centering issue rather than a real effect (an audit would confirm) | Report parameter recovery (bias/RMSE/coverage) per condition; separate the sample-size confound; audit the centering |
+| 3 | **The "misfit" manipulation is uniform noise** | 🔴 Critical | Setting the slope to 0 makes every category equally likely (corr with ability ≈ 0) — uniform noise (on average), not realistic inaccuracy; and the MFRM has a built-in home-field advantage | Use a *range* of realistic inaccuracy mechanisms; adopt a neutral cross-generative design |
+| 4 | **A single short MCMC chain** carries the HRM | 🔴 Critical | 700 draws from one chain ⇒ R-hat undefined and the MCSE of φ (≈ 0.085–0.19) is the *size of the between-condition differences* interpreted (0.05–0.16) | ≥ 4 chains, longer run; report R-hat/ESS/MCSE for focal parameters; prior sensitivity; posterior-predictive checks |
+| 5 | **"Sensitivity" was never measured as detection** | 🟠 Fundamental · *framing* | Defined as detection (p. 48) but measured as the partial η² of means on effect raters only; a big η² hides a 16% false-positive rate, and η² = .01 ("practical") ≈ chance detection (AUC ≈ 0.56, where 0.5 is a coin flip) | Report TPR/FPR/ROC-AUC at the cut + recovery; include normal *and* effect raters; reserve "sensitivity" for detection |
+| 6 | **Local dependence is marginal, not residual** | 🔴 Critical | Yen's local independence is the *residual* correlation, but the study sets the *marginal* one; the LI baseline marginal depends on the unit (≈ 0.79 per total score, ≈ 0.43 per item). 0.2 sits below both (negative residual — not a violation), 0.9 above both (genuine violation), and 0.6 between them — a genuine positive violation under the dissertation's "among items" reading | Report the realized residual correlation per condition; re-manipulate on the residual scale; re-scope the "robust" claim |
+| 7 | **Additional concerns** (count, ANOVA hygiene, review coding) | 🟡 Moderate · *housekeeping* | Condition count 81 vs. stated 108 (+ a stray n = 900); per-indicator ANOVAs ignore clustering and lean on the η² ≥ .01 bar; the systematic review is single-coded (additive, not fatal) | Reconcile the grid + release the log; replicate-level / mixed-effects analysis; double-code ~20% and report κ |
+
+: Every concern, ordered by how hard it is to defend. {#tbl-summary tbl-colwidths="[4,26,16,34,20]"}
+
+**How to read the severity column** (most pressing first). 🔴 *Critical* — fatal to the
+specific claim unless addressed; Chapters 1 and 2 are the two hardest to defend ("must-ask").
+🟠 *Fundamental* — undermines the central *construct* of both studies (Chapter 5 reframes
+everything). 🟡 *Moderate* — additive housekeeping a journal will expect, but not a threat to
+the core argument. One caution on the colours: they track how *urgently a specific reviewer
+question lands*, not overall depth — so 🟠 *Fundamental* is **not** a milder 🔴. It is the one
+construct-level issue, and the highest-leverage thing to fix *first* in the Revision Roadmap
+(Chapter 5), even though the 🔴 items are the ones a reviewer raises first.
+
+**Where to start — two orders, on purpose.** These notes run in one order but point to another
+for revision, so it helps to name both up front. **For reading,** the chapters come
+**hardest-to-defend first** — so **Chapter 1** (ψ) and **Chapter 2** (the location collapse)
+lead, the questions a reviewer is most likely to raise first, and the two hardest to explain
+from the outside. **For revision,** the order is different: the **Revision Roadmap** at the end
+runs **highest-leverage first**, and its Tier 1 opens with **Chapter 5**, because once
+"sensitivity" means *detection* and is *measured* as detection, every other concern becomes
+easier to state and to answer. The two orders differ for a simple reason: reading hardest-first
+surfaces the sharpest questions, while revising leverage-first lets each fix clear the ground
+for the next. Every chapter ends with the exact question to be ready for.

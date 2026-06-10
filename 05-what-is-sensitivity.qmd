@@ -1,0 +1,202 @@
+---
+title: "What did we actually measure? Sensitivity vs. a shift in means"
+---
+
+This chapter addresses one of the most consequential decisions in *both* simulation
+studies — one that is easy to miss precisely because the framing is so intuitive. The
+mean-shift findings are real and publishable; what needs sharpening is what they
+are actually *measuring*. The key definitions are on pp. 48, 62, and 65, the same rule is
+repeated at p. 86, and the results are in Tables 23–27 (pp. 110–112).
+
+## What the dissertation does
+
+The dissertation defines sensitivity exactly as it should be defined. Page 48 states that "the
+sensitivity of rater effect indicators refers to the ability of these indices to
+**accurately identify rater effects when they are present**" — that is, given that a
+rater truly has a problem, does the index catch it? This is the *detection* question, and
+it is the right one.
+
+To measure it, both studies run an ANOVA over the simulated conditions and report partial
+η² as the outcome: "we examined partial η² as an effect size, considering values greater
+than 0.01 as the threshold for practical significance" (p. 62; the same rule in Study 3,
+p. 86). The analysis is restricted to effect raters — "we focused only on the effect
+raters" (p. 65) — and the resulting η² values are read as evidence of sensitivity (for
+example, rater location η² = .51 and HRM ψ η² = .88; Tables 23–27, pp. 110–112).
+
+The logic appears natural: if the index rises when there is a real effect, and the effect of
+condition on the index is large, the index would seem to be detecting the effect. But the step
+from "the mean shifts" to "individual raters are caught" is exactly the step that needs
+unpacking — and unpacking it changes the picture.
+
+## Why this threatens the conclusion
+
+The gap is clearest by analogy. Consider a school nurse with a
+thermometer, asked to find which children have a fever. *Detection* asks two questions: of
+the children who truly have a fever, what fraction does the thermometer flag (the
+**true-positive rate**, TPR)? And of the healthy children, what fraction does it flag by
+mistake (the **false-positive rate**, FPR)? The **ROC curve** traces the trade-off between
+those two across every possible cut score, and the **area under it (AUC)** summarizes the
+whole thing in one number — 1.0 is perfect, 0.5 is a coin flip. (Geometrically: plot TPR
+against FPR as the cut slides from strict to lax; a perfect detector hugs the top-left
+corner, AUC = 1, while a coin flip lies along the diagonal, AUC = 0.5.)
+
+Partial η² answers a *different* question. It quantifies how much of the variance in
+*thermometer readings* is explained by whether the child is sick. A thermometer can show a
+large group-mean gap — sick kids average 39°C, healthy kids 37°C — while still flagging
+one in six healthy children, because normal temperatures vary and the cut falls inside the
+normal range. The big η² says the thermometer is sensitive to sickness *as a
+population-level signal*; it does not say the thermometer is accurate at the
+*individual-level decision*.
+
+This is not hypothetical. The measurement model was reconstructed in R from the simulation
+parameters described in the dissertation — not a re-run of TAM, but a ground-up implementation. In a
+severity scenario at the field-standard **+0.5-logit cut**, the reconstruction recovers η² ≈ 0.80 and
+AUC ≈ 0.997 — both excellent. But the false-positive rate at that cut is about **16%**,
+because normal-rater severities are drawn from N(0, 0.5) and +0.5 falls exactly one
+standard deviation above the mean, so by construction about one in six normal raters clears
+it. That 16% is never visible in the dissertation, because
+analyzing *effect raters only* makes the false-positive side of the problem structurally
+absent from the data. @fig-sensitivity makes this concrete.
+
+```{r}
+#| label: fig-sensitivity
+#| fig-cap: "η² is not detection. **(A)** Even with a huge η² (0.80) and an excellent AUC (0.997), the field-standard +0.5-logit cut flags ≈ 16% of *normal* raters as severe (shaded tail) — a false-positive rate the effect-raters-only analysis never reports. **(B)** Across conditions, the study's η² ≥ .01 'practical significance' bar lands at AUC ≈ 0.56 — barely above the 0.5 chance line. A large mean shift and good individual detection are different things."
+#| fig-width: 9
+#| fig-height: 4
+#| code-summary: "Show the R code (severity detection + η²→AUC map)"
+suppressPackageStartupMessages({ library(ggplot2); library(patchwork); library(scales) })
+source("R/common.R")
+set.seed(303)
+
+# model-information weight W = average score variance; SE of a rater location
+d_vals <- rnorm(5, 0, 0.5); thL <- rnorm(40000)
+W  <- mean(vapply(d_vals, function(d) mean(score_variance(pcmfrm_probs(thL, 0, d, alpha = 1))), numeric(1)))
+se_lambda <- function(N, I = 5) 1 / sqrt(N * I * W)
+
+# ---- Panel A: severity detection at N=100, cut = +0.5 -----------------------
+SE <- se_lambda(100); CUT <- 0.5; NR <- 8000
+lam_norm <- rnorm(NR, 0, 0.5) + rnorm(NR, 0, SE)
+lam_sev  <- rnorm(NR, 2, 0.5) + rnorm(NR, 0, SE)
+eta2_two <- function(a, b) { g <- c(a, b); gm <- mean(g)
+  (length(a)*(mean(a)-gm)^2 + length(b)*(mean(b)-gm)^2) / sum((g-gm)^2) }
+eta2_A <- eta2_two(lam_norm, lam_sev)
+TPR_A <- mean(lam_sev > CUT); FPR_A <- mean(lam_norm > CUT); AUC_A <- mean(outer(lam_sev, lam_norm, ">"))
+
+xs <- seq(-1.5, 5.5, length.out = 600); sdmix <- sqrt(0.5^2 + SE^2)
+dens <- rbind(data.frame(x = xs, y = dnorm(xs, 0, sdmix), g = "Normal raters (~N(0, 0.5))"),
+              data.frame(x = xs, y = dnorm(xs, 2, sdmix), g = "Severe raters (~N(2, 0.5))"))
+dens$g <- factor(dens$g, levels = c("Normal raters (~N(0, 0.5))", "Severe raters (~N(2, 0.5))"))
+fp <- subset(dens, g == "Normal raters (~N(0, 0.5))" & x >= CUT)
+box <- sprintf("η² = %.2f   (huge effect)\nAUC = %.3f\nTPR = %.3f\nFPR = %.3f  ← not reported here\n          (effect raters only)",
+               eta2_A, AUC_A, TPR_A, FPR_A)
+pA <- ggplot(dens, aes(x, y, colour = g)) +
+  geom_area(data = fp, aes(x, y), fill = pal_companion[["none"]], alpha = .4, inherit.aes = FALSE) +
+  geom_line(linewidth = 1) +
+  geom_vline(xintercept = CUT, linetype = "dashed", colour = "grey30", linewidth = .7) +
+  annotate("text", x = CUT + .08, y = max(dens$y) * .85, label = "+0.5-logit\ncut", hjust = 0,
+           size = 3, colour = "grey30", lineheight = .85) +
+  annotate("text", x = 1.55, y = .10, label = "false\npositives", size = 3, colour = pal_companion[["none"]],
+           fontface = "bold", lineheight = .9) +
+  annotate("label", x = 5.4, y = max(dens$y) * .62, label = box, hjust = 1, vjust = 1,
+           size = 2.85, lineheight = 1.1, fill = "white", colour = "grey20") +
+  scale_colour_manual(name = NULL, values = c("Normal raters (~N(0, 0.5))" = pal_companion[["none"]],
+                                              "Severe raters (~N(2, 0.5))" = pal_companion[["severe"]])) +
+  scale_x_continuous(breaks = seq(-1, 5, 1)) +
+  labs(title = "(A)  A huge η² hides a 16% false-positive rate",
+       subtitle = "estimated rater location (logits); N = 100 persons per rater",
+       x = "estimated rater severity  λ̂  (logits)", y = "density") +
+  theme_companion(11) + theme(legend.position = "bottom",
+                              plot.subtitle = element_text(colour = "grey40", size = 9))
+
+# ---- Panel B: η² -> detection map -------------------------------------------
+set.seed(303)
+dfB <- do.call(rbind, lapply(seq(0.05, 3, length.out = 40), function(mu) {
+  a <- rnorm(6000, 0, .5); b <- rnorm(6000, mu, .5)
+  data.frame(eta2 = eta2_two(a, b), auc = mean(outer(b, a, ">")), tpr = mean(b > CUT)) }))
+i01 <- which.min(abs(dfB$eta2 - 0.01)); auc01 <- dfB$auc[i01]
+eta2_seq <- seq(1e-4, .92, length.out = 400); d_seq <- 2 * sqrt(eta2_seq / (1 - eta2_seq))
+ana <- subset(data.frame(eta2 = eta2_seq, auc = pnorm(d_seq / sqrt(2))), auc >= .45)
+pB <- ggplot() +
+  geom_line(data = ana, aes(eta2, auc), colour = pal_companion[["misfit"]], linewidth = .6, linetype = "dotted") +
+  geom_line(data = dfB, aes(eta2, auc, colour = "ROC-AUC"), linewidth = .9) +
+  geom_hline(yintercept = .5, linetype = "dotted", colour = "grey55", linewidth = .65) +
+  annotate("text", x = .0011, y = .505, label = "AUC = 0.5  (chance)", hjust = 0, vjust = 0, size = 2.9, colour = "grey45") +
+  geom_vline(xintercept = .01, linetype = "dashed", colour = pal_companion[["warn"]], linewidth = .75) +
+  annotate("text", x = .013, y = .63, hjust = 0, vjust = .5, size = 2.85, lineheight = .9,
+           colour = pal_companion[["warn"]], fontface = "italic",
+           label = sprintf("η² = .01\n\"practical\nsignificance\"\n→ AUC ≈ %.2f\n(near chance)", auc01)) +
+  geom_point(data = dfB[i01, ], aes(eta2, auc), colour = pal_companion[["warn"]], size = 3) +
+  scale_x_log10(breaks = c(.001, .01, .05, .1, .3, .6, .9), labels = c(".001", ".01", ".05", ".10", ".30", ".60", ".90")) +
+  scale_y_continuous(limits = c(.45, 1.01), breaks = seq(.5, 1, .1), oob = scales::squish) +
+  scale_colour_manual(name = NULL, values = c("ROC-AUC" = pal_companion[["severe"]])) +
+  labs(title = "(B)  η² ≥ .01 ≠ ability to detect a rater",
+       subtitle = "two groups N(0, 0.5) vs N(μ, 0.5); dotted = analytic AUC = Φ(d/√2)",
+       x = "partial η²  (log scale)", y = "detection metric") +
+  theme_companion(11) + theme(legend.position = "bottom",
+                              plot.subtitle = element_text(colour = "grey40", size = 9),
+                              panel.grid.minor = element_blank())
+pA | pB
+```
+
+The η² ≥ .01 threshold compounds the problem. A partial η² of .01 corresponds to Cohen's
+$d \approx 0.20$, which corresponds to **AUC ≈ 0.557** — barely distinguishable from chance
+(Panel B). The bar says "practically significant," but it is set so low that an index can
+clear it while doing almost no useful individual-level discrimination. The figure does not
+indict the findings; it shows that η² and AUC track *different things*, and that
+a single bar should not be asked to certify both.
+
+## What would fix it
+
+::: {.callout-tip}
+## Fix-it
+The revision is more *additive* than corrective — the mean-shift results stay; they just
+need company.
+
+- **Report detection directly — the full confusion-matrix readout.** For each indicator and
+  condition, give, at each stated cut, the true-positive rate (sensitivity — fraction of
+  effect raters correctly flagged), the false-positive rate (fraction of normal raters
+  wrongly flagged) and its complement specificity (1 − FPR), plus the predictive values that
+  tell a *reader* what a flag is worth — PPV (of the raters flagged, the fraction that truly
+  have an effect) and NPV (of those cleared, the fraction truly normal). Add the
+  threshold-free summary, the ROC curve with its AUC, and a **calibration** check: does the
+  realized flag rate among normal raters match the nominal rate the cut is meant to deliver
+  (a +0.5-logit cut on $N(0, 0.5)$ should flag ≈ 16%, not whatever an off-target cut
+  produces)? And because TPR, FPR, and AUC are themselves averages over the 100 replications,
+  report a **Monte-Carlo standard error** for each, so a reader can tell a genuine difference
+  between indicators from simulation noise.
+- **Pre-specify a direction-aware flag rule, then report detection at it.** Severity has a
+  sign: a one-sided +0.5-logit cut catches only *over-severity* and is structurally blind to
+  leniency (the negative tail), so a too-lenient rater is missed no matter how large the
+  effect. Decide the rule *before* looking at the results — pre-register a two-sided
+  severity/leniency flag ($|\hat{\lambda}| > c$), or a pair of explicit one-sided cuts ($+c$
+  for severity, $-c$ for leniency, reported separately) — and report TPR/FPR/AUC at that
+  pre-registered rule rather than at a cut chosen after seeing which side the effect fell on.
+- **Include both normal and effect raters.** The false-positive rate is undefined if
+  normal raters are excluded — so the analysis must contain them.
+- **Add parameter recovery** already latent in the design: bias, RMSE, and coverage of
+  the rater-effect estimates — *how well* the index estimates, alongside *whether* it flags.
+- **Justify or replace the η² ≥ .01 bar.** If kept, say plainly that it marks a non-trivial
+  *mean shift*, not acceptable *detection accuracy*; better, report AUC next to η².
+- **Reserve "sensitivity" for the detection quantity** (TPR / ROC / AUC), and describe the
+  η² results as "how much the mean index shifts across conditions" — a real, reportable
+  finding, but a different claim.
+:::
+
+## What a reviewer will ask
+
+::: {.callout-warning}
+## What a reviewer will ask
+"Your definition of sensitivity is detection — correctly identifying problem raters. Why
+report the partial η² of the mean index on effect raters only, rather than the
+true-positive and false-positive rates and the ROC-AUC at your cut scores? And what
+justifies an η² ≥ .01 'practical significance' bar that corresponds to near-chance
+detection?"
+:::
+
+A prepared answer is available: the η² analysis was a condition-sensitivity check
+— showing the index responds to an effect at all — but *individual-level*
+detection requires TPR, FPR, and AUC, and the revised manuscript can report them directly.
+That response frames the revision as a strengthening, not
+a correction. This chapter unlocks the others: once "sensitivity" means
+detection and is measured as detection, the earlier concerns about ψ, the misfit
+manipulation, and the MCMC all become easier to state precisely and to answer.
