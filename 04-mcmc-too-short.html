@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; A single short MCMC chain cannot carry the HRM – Methodological Notes on Two Rater-Effect Simulation Studies</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05-what-is-sensitivity.html" rel="next">
+<link href="./03-misfit-is-noise.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ad65642396706b98715c55ca42ec91d9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-83de1d5ff08d85e86a2a35fc8bcbf734.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-ad65642396706b98715c55ca42ec91d9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-psi-not-identified.html">Part I — The critical issues</a></li><li class="breadcrumb-item"><a href="./04-mcmc-too-short.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">A single short MCMC chain cannot carry the HRM</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Methodological Notes on Two Rater-Effect Simulation Studies</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-executive-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Executive summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I — The critical issues</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-psi-not-identified.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The HRM’s ψ cannot be estimated for misfit raters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-location-collapse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The vanishing severe rater: a location estimate that collapses with sample size</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-misfit-is-noise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The ‘misfit’ rater is a coin flip</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-mcmc-too-short.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">A single short MCMC chain cannot carry the HRM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-what-is-sensitivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">What did we actually measure? Sensitivity vs.&nbsp;a shift in means</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-marginal-vs-residual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Local dependence: marginal correlation vs.&nbsp;residual correlation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Part II — Additional concerns &amp; the path forward</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-additional-concerns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Additional concerns</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-revision-roadmap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">A minimal-revision roadmap (and the questions to expect)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Reproducibility appendix</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-the-dissertation-does" id="toc-what-the-dissertation-does" class="nav-link active" data-scroll-target="#what-the-dissertation-does"><span class="header-section-number">4.1</span> What the dissertation does</a></li>
+  <li><a href="#why-this-threatens-the-conclusion" id="toc-why-this-threatens-the-conclusion" class="nav-link" data-scroll-target="#why-this-threatens-the-conclusion"><span class="header-section-number">4.2</span> Why this threatens the conclusion</a></li>
+  <li><a href="#what-would-fix-it" id="toc-what-would-fix-it" class="nav-link" data-scroll-target="#what-would-fix-it"><span class="header-section-number">4.3</span> What would fix it</a></li>
+  <li><a href="#what-a-reviewer-will-ask" id="toc-what-a-reviewer-will-ask" class="nav-link" data-scroll-target="#what-a-reviewer-will-ask"><span class="header-section-number">4.4</span> What a reviewer will ask</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-psi-not-identified.html">Part I — The critical issues</a></li><li class="breadcrumb-item"><a href="./04-mcmc-too-short.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">A single short MCMC chain cannot carry the HRM</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">A single short MCMC chain cannot carry the HRM</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The concern in this chapter is narrow: it is about how <em>long</em> the MCMC sampler ran, and what that means for trusting the specific numerical comparisons drawn from it. This discussion appears on pages 60–61.</p>
+<section id="what-the-dissertation-does" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="what-the-dissertation-does"><span class="header-section-number">4.1</span> What the dissertation does</h2>
+<p>The HRM is estimated with the R package <code>immer</code>, which — as the dissertation notes — “provides one chain” (p.&nbsp;60). That single chain runs 1,000 iterations, of which the first 300 are discarded as <em>burn-in</em> (the warm-up phase whose draws are thrown away while the sampler is still finding its way around the posterior). The remaining ~700 draws are the entire posterior sample — the pool from which every estimate, interval, and between-condition comparison is read.</p>
+<p>For a sense of scale, the benchmarks cited on the same page: <code>immer</code>’s own default is 500,000 iterations with 200,000 burn-in; Patz et al.&nbsp;(2002) used 10,000 / 1,000; Casabianca et al.&nbsp;used 105,000 / 5,000 (p.&nbsp;60). The chain is between one-fifteenth and one-hundredth as long as established practice. The priors are diffuse: <span class="math inline">\(\phi_r \sim N(0, 10^2)\)</span>, <span class="math inline">\(\psi_r \sim N(0.4, 10^2)\)</span>, and <span class="math inline">\(\sigma^2 \sim \text{InverseGamma}(0.001, 1)\)</span> (p.&nbsp;61).</p>
+<p>To check convergence, the dissertation reports a Gelman–Rubin <span class="math inline">\(\hat{R}\)</span> — a diagnostic that compares <em>between-chain</em> to <em>within-chain</em> variance, with values near 1.0 signaling that chains started from different places have settled on the same distribution. But a real <span class="math inline">\(\hat{R}\)</span> needs at least two chains, and only one was run; so the reported value is computed “by splitting a single chain into three segments and treat[ing] them as independent chains” (p.&nbsp;61). Even that weaker substitute flags trouble: “some parameters, such as <span class="math inline">\(a_i\)</span>, exhibited high Rhat values, indicating potential convergence issues” (p.&nbsp;61). The dissertation concludes the focal results were not strongly affected — but that claim is hard to verify with the evidence at hand.</p>
+</section>
+<section id="why-this-threatens-the-conclusion" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="why-this-threatens-the-conclusion"><span class="header-section-number">4.2</span> Why this threatens the conclusion</h2>
+<p>The core issue is that 700 draws from one chain is <em>not</em> 700 independent draws. A Markov chain produces <strong>autocorrelated</strong> samples — each draw resembles the one before it — so it must run long enough for that correlation to decay before it behaves like a random sample. The <strong>effective sample size</strong> corrects for this: if the integrated autocorrelation time is <span class="math inline">\(\tau\)</span>, then <span class="math inline">\(\text{ESS} \approx 700/\tau\)</span>. For a hierarchical IRT model with hundreds of correlated parameters (an ability for every examinee, an item vector for every item, and every <span class="math inline">\(\phi_r\)</span> and <span class="math inline">\(\psi_r\)</span>), estimated by the single-site Metropolis–Hastings sampler <code>immer</code> uses, <span class="math inline">\(\tau\)</span> is commonly in the tens to hundreds. At <span class="math inline">\(\tau = 20, 50, 100\)</span>, those ~700 retained draws give an ESS of only <strong>35, 14, and 7</strong> — a few dozen genuinely independent draws at best, dwindling to single digits. The remedy is built into that same arithmetic: because <span class="math inline">\(\text{ESS} \approx N/\tau\)</span>, a chain ten times longer would lift these to roughly 350, 140, and 70. The problem is not autocorrelation itself but that 700 draws is too thin a pool to absorb it, and lengthening the chain is exactly what raises the ESS.</p>
+<p>That matters because every reported posterior mean carries a <strong>Monte-Carlo standard error</strong> — the uncertainty from using a finite, autocorrelated sample rather than the true posterior: <span class="math inline">\(\text{MCSE} = \text{posterior SD} / \sqrt{\text{ESS}}\)</span>. With <span class="math inline">\(\sigma_\phi \approx 0.5\)</span>, the MCSE at those ESS values is about <strong>0.085, 0.134, and 0.189</strong> — the <em>same size</em> as the between-condition <span class="math inline">\(\phi\)</span> differences of roughly 0.05–0.16 interpreted as meaningful. In other words, the Monte-Carlo noise in the estimate is as large as the reported signal. <a href="#fig-mcmc-short" class="quarto-xref">Figure&nbsp;<span>4.1</span></a> shows both halves of this.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the R code (illustrative AR(1) surrogate + exact ESS/MCSE)</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({ <span class="fu">library</span>(ggplot2); <span class="fu">library</span>(patchwork) })</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/common.R"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>N_KEEP <span class="ot">&lt;-</span> <span class="dv">700</span>L; SD_PHI <span class="ot">&lt;-</span> <span class="fl">0.5</span>; BURN <span class="ot">&lt;-</span> <span class="dv">300</span>L; LEN <span class="ot">&lt;-</span> <span class="dv">1000</span>L</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>DIFF_LO <span class="ot">&lt;-</span> <span class="fl">0.05</span>; DIFF_HI <span class="ot">&lt;-</span> <span class="fl">0.16</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ess  <span class="ot">&lt;-</span> <span class="cf">function</span>(tau) N_KEEP <span class="sc">/</span> tau</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>mcse <span class="ot">&lt;-</span> <span class="cf">function</span>(tau) SD_PHI <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">ess</span>(tau))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>tau_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">150</span>, <span class="at">length.out =</span> <span class="dv">400</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>ar1 <span class="ot">&lt;-</span> <span class="cf">function</span>(rho, n, <span class="at">sd =</span> SD_PHI, <span class="at">mu =</span> <span class="dv">0</span>) {          <span class="co"># single-site-MH-like autocorrelation</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n); x[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, mu, sd); inn <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sd <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">-</span> rho<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) x[t] <span class="ot">&lt;-</span> mu <span class="sc">+</span> rho <span class="sc">*</span> (x[t <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">-</span> mu) <span class="sc">+</span> inn[t]; x</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>rho_typ <span class="ot">&lt;-</span> (<span class="dv">50</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (<span class="dv">50</span> <span class="sc">+</span> <span class="dv">1</span>)                          <span class="co"># τ = 50</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>chA <span class="ot">&lt;-</span> <span class="fu">ar1</span>(rho_typ, LEN); chB <span class="ot">&lt;-</span> <span class="fu">ar1</span>(rho_typ, LEN)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>mA <span class="ot">&lt;-</span> <span class="fu">mean</span>(chA[(BURN <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>LEN]); mB <span class="ot">&lt;-</span> <span class="fu">mean</span>(chB[(BURN <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>LEN])</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel A — two single chains disagree</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>dfA <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">data.frame</span>(<span class="at">it =</span> <span class="dv">1</span><span class="sc">:</span>LEN, <span class="at">phi =</span> chA, <span class="at">chain =</span> <span class="st">"Chain A"</span>),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>             <span class="fu">data.frame</span>(<span class="at">it =</span> <span class="dv">1</span><span class="sc">:</span>LEN, <span class="at">phi =</span> chB, <span class="at">chain =</span> <span class="st">"Chain B"</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>pA <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dfA, <span class="fu">aes</span>(it, phi, <span class="at">colour =</span> chain)) <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> BURN, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">fill =</span> <span class="st">"grey85"</span>, <span class="at">alpha =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> BURN<span class="sc">/</span><span class="dv">2</span>, <span class="at">y =</span> <span class="fl">1.7</span>, <span class="at">label =</span> <span class="st">"burn-in</span><span class="sc">\n</span><span class="st">(300 discarded)"</span>, <span class="at">size =</span> <span class="fl">2.7</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"grey45"</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> .<span class="dv">35</span>, <span class="at">alpha =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> mA, <span class="at">colour =</span> pal_companion[[<span class="st">"misfit"</span>]], <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> mB, <span class="at">colour =</span> pal_companion[[<span class="st">"severe"</span>]], <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"label"</span>, <span class="at">x =</span> <span class="dv">1000</span>, <span class="at">y =</span> <span class="fl">1.92</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">2.55</span>, <span class="at">colour =</span> <span class="st">"grey25"</span>,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> .<span class="dv">85</span>, <span class="at">label.size =</span> <span class="dv">0</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"the two post-burn-in means differ by %.2f</span><span class="sc">\n</span><span class="st">— a single chain cannot reveal this"</span>, <span class="fu">abs</span>(mA <span class="sc">-</span> mB))) <span class="sc">+</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Chain A"</span> <span class="ot">=</span> pal_companion[[<span class="st">"misfit"</span>]], <span class="st">"Chain B"</span> <span class="ot">=</span> pal_companion[[<span class="st">"severe"</span>]])) <span class="sc">+</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">600</span>, <span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"(A)  Two single 1,000 / 300 chains disagree"</span>,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"illustrative AR(1) surrogate — not a re-run of immer"</span>, <span class="at">x =</span> <span class="st">"MCMC iteration"</span>, <span class="at">y =</span> <span class="st">"φ draw"</span>) <span class="sc">+</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="dv">9</span>))</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel B — MCSE vs τ, with the interpreted-effect band</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>dfB <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">tau =</span> tau_seq, <span class="at">mcse =</span> <span class="fu">mcse</span>(tau_seq))</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">tau =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>), <span class="at">mcse =</span> <span class="fu">mcse</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>)), <span class="at">ess =</span> <span class="fu">ess</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>)))</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>pB <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dfB, <span class="fu">aes</span>(tau, mcse)) <span class="sc">+</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">xmax =</span> <span class="cn">Inf</span>, <span class="at">ymin =</span> DIFF_LO, <span class="at">ymax =</span> DIFF_HI,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> pal_companion[[<span class="st">"accent"</span>]], <span class="at">alpha =</span> .<span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">148</span>, <span class="at">y =</span> <span class="fl">0.088</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> .<span class="dv">5</span>, <span class="at">size =</span> <span class="fl">2.85</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> pal_companion[[<span class="st">"accent"</span>]], <span class="at">fontface =</span> <span class="st">"italic"</span>,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"between-condition φ</span><span class="sc">\n</span><span class="st">differences interpreted</span><span class="sc">\n</span><span class="st">(0.05–0.16)"</span>) <span class="sc">+</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>, <span class="at">colour =</span> <span class="st">"#34495E"</span>) <span class="sc">+</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> pts, <span class="fu">aes</span>(tau, mcse), <span class="at">colour =</span> pal_companion[[<span class="st">"warn"</span>]], <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> pts, <span class="fu">aes</span>(tau, mcse, <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"ESS = %.0f"</span>, ess)),</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">1.1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> pal_companion[[<span class="st">"warn"</span>]], <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>)) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>)) <span class="sc">+</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"(B)  Monte-Carlo error rivals the 'effects'"</span>,</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"R-hat undefined with one chain;  ESS = 700 / τ,  MCSE = 0.5 / √ESS"</span>,</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"integrated autocorrelation time  τ  (swept, not estimated)"</span>, <span class="at">y =</span> <span class="st">"MCSE of φ posterior mean"</span>) <span class="sc">+</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>                              <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>pA <span class="sc">|</span> pB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-mcmc-short" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mcmc-short-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="04-mcmc-too-short_files/figure-html/fig-mcmc-short-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mcmc-short-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.1: A single short chain cannot carry the HRM. <strong>(A)</strong> Two independent chains of the same length (1,000 iterations, 300 burn-in) under single-site-MH-like autocorrelation land at post-burn-in means about 0.14 apart — a gap a <em>single</em> chain cannot reveal. <strong>(B)</strong> The Monte-Carlo standard error of φ versus the autocorrelation time τ: across the realistic range it lands inside the very band of between-condition differences the study interprets (0.05–0.16); ESS = 700/τ is 35/14/7 at τ = 20/50/100. <em>This is an honest AR(1) surrogate calibrated to the regime — not a re-run of immer; the ESS/MCSE relations are exact algebra.</em>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A note on the figure: it is an <em>illustrative surrogate</em> calibrated to the regime of single-site Metropolis–Hastings on a hierarchical posterior — not a re-run of the <code>immer</code> model, since the data are not available. The ESS and MCSE relationships are exact algebra; the chain-disagreement panel illustrates what is <em>possible</em> in this regime, not a claim about the sampler’s exact <span class="math inline">\(\tau\)</span>. The arithmetic, worked from first principles, reaches the same place.</p>
+<p>Two further points. First, the high <span class="math inline">\(\hat{R}\)</span> for <span class="math inline">\(a_i\)</span> cannot be safely bracketed: in a hierarchical model <span class="math inline">\(a_i\)</span>, <span class="math inline">\(\theta\)</span>, <span class="math inline">\(\xi\)</span>, <span class="math inline">\(\phi\)</span>, and <span class="math inline">\(\psi\)</span> are coupled in the joint posterior, so a sampling problem in one is a warning about the whole. The dissertation does not leave this unexamined: it re-checks with longer chains and finds the focal patterns stable (p.&nbsp;60), and it compares the <span class="math inline">\(a_i\)</span>-estimated against the <span class="math inline">\(a_i\)</span>-fixed specification across 20 replications, where the results were consistent (a moderate, positive correlation, with the mean <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\psi\)</span> holding up; p.&nbsp;61). What those checks cannot do is <em>substitute</em> for a convergence statistic: a stable pattern across longer runs, or matching means across replications, is a robustness observation — it tells a reader the result is reproducible — not a formal <span class="math inline">\(\hat{R}\)</span>/ESS demonstration that the coupled sampler has converged. Second, the diffuse priors compound the issue: <span class="math inline">\(\text{InverseGamma}(0.001, 1)\)</span> on <span class="math inline">\(\sigma^2\)</span> is extremely diffuse — its mode sits near 1 and, with shape <span class="math inline">\(0.001 &lt; 1\)</span>, its mean is not even finite, so it spreads enormous prior mass over large <span class="math inline">\(\sigma^2\)</span> (a very heavy right tail) rather than piling mass near zero. The Limitations section (p.&nbsp;74) flags that <code>immer</code>’s default inverse-gamma prior “has raised concerns in previous research,” citing Gelman (2006) by name. The one nuance to add is <em>which</em> form Gelman criticized: the pathology is the <span class="math inline">\(\text{InverseGamma}(\epsilon,
+\epsilon)\)</span> case — both parameters tiny — whose pile-up of mass near zero is the genuinely long-criticized behavior, and that is not the <span class="math inline">\(\text{InverseGamma}(0.001, 1)\)</span> used here. With a scale of 1, this prior behaves the opposite way near the boundary, so Gelman’s specific warning does not land on it. Even so, such a heavy-tailed prior on <span class="math inline">\(\sigma^2\)</span> can slow mixing, and when convergence is uncertain its influence on <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\psi\)</span> cannot be cleanly separated from sampling noise.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The strongest counterargument
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The record shows convergence was not ignored. The high <span class="math inline">\(\hat{R}\)</span> for some parameters is reported openly in the Limitations (p.&nbsp;74); additional checks with <em>longer chains</em> found the focal patterns stable (p.&nbsp;60); the <span class="math inline">\(a_i\)</span>-estimated specification was compared against the <span class="math inline">\(a_i\)</span>-fixed specification across <em>20 replications</em> (p.&nbsp;61) with consistent results; and the dissertation flags that <code>immer</code>’s default inverse-gamma prior “has raised concerns in previous research,” citing Gelman (2006). This is more convergence diligence than most applied MFRM papers show.</p>
+<p>The issue was never <em>awareness</em>; it is the <em>form</em> of the evidence. “The longer chains looked stable” and “the means matched across 20 replications” are robustness observations, not convergence statistics — they tell a reader the result is plausible, not that it is settled. The journal version needs those same checks <em>formalized</em>: a true multi-chain <span class="math inline">\(\hat{R}\)</span>, bulk- and tail-ESS, and an MCSE for each focal <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\psi\)</span>, so that “the patterns were stable” becomes “ESS = X, MCSE = Y, and each interpreted difference exceeds its MCSE by a comfortable margin.” The judgment-laden part is done; what remains is to report it in the currency the reviewer counts in.</p>
+</div>
+</div>
+</section>
+<section id="what-would-fix-it" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="what-would-fix-it"><span class="header-section-number">4.3</span> What would fix it</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Fix-it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Run ≥ 4 independent chains</strong> from dispersed starting values — the prerequisite for a meaningful <span class="math inline">\(\hat{R}\)</span> — each much longer than 1,000/300 (treat Patz’s 10,000/1,000 or Casabianca’s 105,000/5,000 as a floor, and extend if diagnostics warrant). The obstacle is that <code>immer</code> provides only one chain by default, so there are two realistic routes to the four. The immediate, low-cost one: run <code>immer</code> ≥ 4 times from different seeds and dispersed starting values, then pool the runs as chains and compute the diagnostics across them. The more thorough one — and the better long-run investment — is to re-implement the HRM in a native multi-chain sampler (Stan, JAGS, or NIMBLE), which runs the chains jointly and yields proper multi-chain <span class="math inline">\(\hat{R}\)</span>, bulk-/tail-ESS, and MCSE directly.</li>
+<li><strong>Report, for every focal parameter</strong> (<span class="math inline">\(\phi_r\)</span>, <span class="math inline">\(\psi_r\)</span>), the true multi-chain <span class="math inline">\(\hat{R}\)</span>, the bulk- and tail-ESS, and the MCSE — and state in the text that each interpreted difference exceeds its MCSE by a comfortable margin.</li>
+<li><strong>Show trace plots and per-chain posterior-density overlays</strong> for the focal parameters as supplementary material — the most direct evidence a reader can inspect.</li>
+<li><strong>Run a prior-sensitivity analysis</strong> for <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\psi\)</span>; replace <span class="math inline">\(\text{InverseGamma}(0.001,1)\)</span> with a half-Normal or half-Cauchy on the SD scale (which mixes far better), and consider a <span class="math inline">\(\log(\psi)\)</span> / positivity-constrained parameterization to avoid boundary pathologies.</li>
+<li><strong>Add posterior-predictive checks</strong> — simulate replicated ratings from the posterior and compare to the observed data — as independent evidence of fit and reach.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="what-a-reviewer-will-ask" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="what-a-reviewer-will-ask"><span class="header-section-number">4.4</span> What a reviewer will ask</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>What a reviewer will ask
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“What are the effective sample size and Monte-Carlo standard error of <span class="math inline">\(\phi\)</span> and <span class="math inline">\(\psi\)</span> at 700 draws from a single chain — and are the between-condition differences you interpret larger than that Monte-Carlo error? And how was an <span class="math inline">\(\hat{R}\)</span> computed from a single chain?”</p>
+</div>
+</div>
+<p><code>immer</code> provides a single chain by default, and a short run is an understandable choice under real time and compute limits — a software-and-resources constraint, not a methodological error. The point is only what the <em>journal</em> version needs to show. Under the current setup the ESS is likely single digits to low tens, the MCSE is of the same order as the reported differences, and the <span class="math inline">\(\hat{R}\)</span> came from a split-chain approximation that itself flagged problems. The goal of the revision is to answer with specific numbers — ESS = X, MCSE = Y, interpreted difference = Z, and a large Z/Y. This is achievable, and getting there makes the HRM results persuasive rather than merely plausible.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./03-misfit-is-noise.html" class="pagination-link" aria-label="The 'misfit' rater is a coin flip">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The ‘misfit’ rater is a coin flip</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./05-what-is-sensitivity.html" class="pagination-link" aria-label="What did we actually measure? Sensitivity vs. a shift in means">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">What did we actually measure? Sensitivity vs.&nbsp;a shift in means</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "A single short MCMC chain cannot carry the HRM"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>The concern in this chapter is narrow: it is about how *long* the MCMC sampler ran, and</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>what that means for trusting the specific numerical comparisons drawn from it. This</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>discussion appears on pages 60–61.</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## What the dissertation does</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>The HRM is estimated with the R package <span class="in">`immer`</span>, which — as the dissertation notes — "provides one</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>chain" (p. 60). That single chain runs 1,000 iterations, of which the first 300 are</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>discarded as *burn-in* (the warm-up phase whose draws are thrown away while the sampler</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>is still finding its way around the posterior). The remaining ~700 draws are the entire</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>posterior sample — the pool from which every estimate, interval, and between-condition</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>comparison is read.</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>For a sense of scale, the benchmarks cited on the same page: <span class="in">`immer`</span>'s own default is</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>500,000 iterations with 200,000 burn-in; Patz et al. (2002) used 10,000 / 1,000;</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>Casabianca et al. used 105,000 / 5,000 (p. 60). The chain is between one-fifteenth and</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>one-hundredth as long as established practice. The priors are diffuse:</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>$\phi_r \sim N(0, 10^2)$, $\psi_r \sim N(0.4, 10^2)$, and</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>$\sigma^2 \sim \text{InverseGamma}(0.001, 1)$ (p. 61).</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>To check convergence, the dissertation reports a Gelman–Rubin $\hat{R}$ — a diagnostic that compares</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>*between-chain* to *within-chain* variance, with values near 1.0 signaling that chains</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>started from different places have settled on the same distribution. But a real $\hat{R}$</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>needs at least two chains, and only one was run; so the reported value is computed "by</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>splitting a single chain into three segments and treat<span class="co">[</span><span class="ot">ing</span><span class="co">]</span> them as independent chains"</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>(p. 61). Even that weaker substitute flags trouble: "some parameters, such as $a_i$,</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>exhibited high Rhat values, indicating potential convergence issues" (p. 61). The</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>dissertation concludes the focal results were not strongly affected — but that claim is hard to</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>verify with the evidence at hand.</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why this threatens the conclusion</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>The core issue is that 700 draws from one chain is *not* 700 independent draws. A Markov</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>chain produces **autocorrelated** samples — each draw resembles the one before it — so it</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>must run long enough for that correlation to decay before it behaves like a random</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>sample. The **effective sample size** corrects for this: if the integrated</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>autocorrelation time is $\tau$, then $\text{ESS} \approx 700/\tau$. For a hierarchical</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>IRT model with hundreds of correlated parameters (an ability for every examinee, an item</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>vector for every item, and every $\phi_r$ and $\psi_r$), estimated by the single-site</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>Metropolis–Hastings sampler <span class="in">`immer`</span> uses, $\tau$ is commonly in the tens to hundreds. At</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>$\tau = 20, 50, 100$, those ~700 retained draws give an ESS of only **35, 14, and 7** — a few dozen</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>genuinely independent draws at best, dwindling to single digits. The remedy is built into</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>that same arithmetic: because $\text{ESS} \approx N/\tau$, a chain ten times longer would</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>lift these to roughly 350, 140, and 70. The problem is not</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>autocorrelation itself but that 700 draws is too thin a pool to absorb it, and lengthening</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>the chain is exactly what raises the ESS.</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>That matters because every reported posterior mean carries a **Monte-Carlo standard</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>error** — the uncertainty from using a finite, autocorrelated sample rather than the true</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>posterior: $\text{MCSE} = \text{posterior SD} / \sqrt{\text{ESS}}$. With</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>$\sigma_\phi \approx 0.5$, the MCSE at those ESS values is about **0.085, 0.134, and</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>0.189** — the *same size* as the between-condition $\phi$ differences of roughly</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>0.05–0.16 interpreted as meaningful. In other words, the Monte-Carlo noise in the</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>estimate is as large as the reported signal. @fig-mcmc-short shows both halves of this.</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-mcmc-short</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A single short chain cannot carry the HRM. **(A)** Two independent chains of the same length (1,000 iterations, 300 burn-in) under single-site-MH-like autocorrelation land at post-burn-in means about 0.14 apart — a gap a *single* chain cannot reveal. **(B)** The Monte-Carlo standard error of φ versus the autocorrelation time τ: across the realistic range it lands inside the very band of between-condition differences the study interprets (0.05–0.16); ESS = 700/τ is 35/14/7 at τ = 20/50/100. *This is an honest AR(1) surrogate calibrated to the regime — not a re-run of immer; the ESS/MCSE relations are exact algebra.*"</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4.2</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Show the R code (illustrative AR(1) surrogate + exact ESS/MCSE)"</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({ <span class="fu">library</span>(ggplot2); <span class="fu">library</span>(patchwork) })</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/common.R"</span>)</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>N_KEEP <span class="ot">&lt;-</span> <span class="dv">700</span>L; SD_PHI <span class="ot">&lt;-</span> <span class="fl">0.5</span>; BURN <span class="ot">&lt;-</span> <span class="dv">300</span>L; LEN <span class="ot">&lt;-</span> <span class="dv">1000</span>L</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>DIFF_LO <span class="ot">&lt;-</span> <span class="fl">0.05</span>; DIFF_HI <span class="ot">&lt;-</span> <span class="fl">0.16</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>ess  <span class="ot">&lt;-</span> <span class="cf">function</span>(tau) N_KEEP <span class="sc">/</span> tau</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>mcse <span class="ot">&lt;-</span> <span class="cf">function</span>(tau) SD_PHI <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">ess</span>(tau))</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>tau_seq <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">150</span>, <span class="at">length.out =</span> <span class="dv">400</span>)</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>ar1 <span class="ot">&lt;-</span> <span class="cf">function</span>(rho, n, <span class="at">sd =</span> SD_PHI, <span class="at">mu =</span> <span class="dv">0</span>) {          <span class="co"># single-site-MH-like autocorrelation</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(n); x[<span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1</span>, mu, sd); inn <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="dv">0</span>, sd <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">-</span> rho<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>n) x[t] <span class="ot">&lt;-</span> mu <span class="sc">+</span> rho <span class="sc">*</span> (x[t <span class="sc">-</span> <span class="dv">1</span>] <span class="sc">-</span> mu) <span class="sc">+</span> inn[t]; x</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>rho_typ <span class="ot">&lt;-</span> (<span class="dv">50</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">/</span> (<span class="dv">50</span> <span class="sc">+</span> <span class="dv">1</span>)                          <span class="co"># τ = 50</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>chA <span class="ot">&lt;-</span> <span class="fu">ar1</span>(rho_typ, LEN); chB <span class="ot">&lt;-</span> <span class="fu">ar1</span>(rho_typ, LEN)</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>mA <span class="ot">&lt;-</span> <span class="fu">mean</span>(chA[(BURN <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>LEN]); mB <span class="ot">&lt;-</span> <span class="fu">mean</span>(chB[(BURN <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span>LEN])</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel A — two single chains disagree</span></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>dfA <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">data.frame</span>(<span class="at">it =</span> <span class="dv">1</span><span class="sc">:</span>LEN, <span class="at">phi =</span> chA, <span class="at">chain =</span> <span class="st">"Chain A"</span>),</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>             <span class="fu">data.frame</span>(<span class="at">it =</span> <span class="dv">1</span><span class="sc">:</span>LEN, <span class="at">phi =</span> chB, <span class="at">chain =</span> <span class="st">"Chain B"</span>))</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>pA <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dfA, <span class="fu">aes</span>(it, phi, <span class="at">colour =</span> chain)) <span class="sc">+</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="dv">0</span>, <span class="at">xmax =</span> BURN, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>, <span class="at">fill =</span> <span class="st">"grey85"</span>, <span class="at">alpha =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> BURN<span class="sc">/</span><span class="dv">2</span>, <span class="at">y =</span> <span class="fl">1.7</span>, <span class="at">label =</span> <span class="st">"burn-in</span><span class="sc">\n</span><span class="st">(300 discarded)"</span>, <span class="at">size =</span> <span class="fl">2.7</span>,</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"grey45"</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> .<span class="dv">35</span>, <span class="at">alpha =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> mA, <span class="at">colour =</span> pal_companion[[<span class="st">"misfit"</span>]], <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> mB, <span class="at">colour =</span> pal_companion[[<span class="st">"severe"</span>]], <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"label"</span>, <span class="at">x =</span> <span class="dv">1000</span>, <span class="at">y =</span> <span class="fl">1.92</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">2.55</span>, <span class="at">colour =</span> <span class="st">"grey25"</span>,</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> .<span class="dv">85</span>, <span class="at">label.size =</span> <span class="dv">0</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>,</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"the two post-burn-in means differ by %.2f</span><span class="sc">\n</span><span class="st">— a single chain cannot reveal this"</span>, <span class="fu">abs</span>(mA <span class="sc">-</span> mB))) <span class="sc">+</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Chain A"</span> <span class="ot">=</span> pal_companion[[<span class="st">"misfit"</span>]], <span class="st">"Chain B"</span> <span class="ot">=</span> pal_companion[[<span class="st">"severe"</span>]])) <span class="sc">+</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">300</span>, <span class="dv">600</span>, <span class="dv">1000</span>)) <span class="sc">+</span></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"(A)  Two single 1,000 / 300 chains disagree"</span>,</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"illustrative AR(1) surrogate — not a re-run of immer"</span>, <span class="at">x =</span> <span class="st">"MCMC iteration"</span>, <span class="at">y =</span> <span class="st">"φ draw"</span>) <span class="sc">+</span></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="dv">9</span>))</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="co"># Panel B — MCSE vs τ, with the interpreted-effect band</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>dfB <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">tau =</span> tau_seq, <span class="at">mcse =</span> <span class="fu">mcse</span>(tau_seq))</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>pts <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">tau =</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>), <span class="at">mcse =</span> <span class="fu">mcse</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>)), <span class="at">ess =</span> <span class="fu">ess</span>(<span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>)))</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>pB <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dfB, <span class="fu">aes</span>(tau, mcse)) <span class="sc">+</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">xmax =</span> <span class="cn">Inf</span>, <span class="at">ymin =</span> DIFF_LO, <span class="at">ymax =</span> DIFF_HI,</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> pal_companion[[<span class="st">"accent"</span>]], <span class="at">alpha =</span> .<span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">148</span>, <span class="at">y =</span> <span class="fl">0.088</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">vjust =</span> .<span class="dv">5</span>, <span class="at">size =</span> <span class="fl">2.85</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>,</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> pal_companion[[<span class="st">"accent"</span>]], <span class="at">fontface =</span> <span class="st">"italic"</span>,</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"between-condition φ</span><span class="sc">\n</span><span class="st">differences interpreted</span><span class="sc">\n</span><span class="st">(0.05–0.16)"</span>) <span class="sc">+</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.1</span>, <span class="at">colour =</span> <span class="st">"#34495E"</span>) <span class="sc">+</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> pts, <span class="fu">aes</span>(tau, mcse), <span class="at">colour =</span> pal_companion[[<span class="st">"warn"</span>]], <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> pts, <span class="fu">aes</span>(tau, mcse, <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"ESS = %.0f"</span>, ess)),</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">1.1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> pal_companion[[<span class="st">"warn"</span>]], <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">20</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>)) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.25</span>)) <span class="sc">+</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"(B)  Monte-Carlo error rivals the 'effects'"</span>,</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"R-hat undefined with one chain;  ESS = 700 / τ,  MCSE = 0.5 / √ESS"</span>,</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"integrated autocorrelation time  τ  (swept, not estimated)"</span>, <span class="at">y =</span> <span class="st">"MCSE of φ posterior mean"</span>) <span class="sc">+</span></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a>                              <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>pA <span class="sc">|</span> pB</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>A note on the figure: it is an *illustrative surrogate* calibrated</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>to the regime of single-site Metropolis–Hastings on a hierarchical posterior — not a</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>re-run of the <span class="in">`immer`</span> model, since the data are not available. The ESS and MCSE</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>relationships are exact algebra; the chain-disagreement panel illustrates what is</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>*possible* in this regime, not a claim about the sampler's exact $\tau$. The arithmetic,</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>worked from first principles, reaches the same place.</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>Two further points. First, the high $\hat{R}$ for $a_i$ cannot be safely bracketed: in a</span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>hierarchical model $a_i$, $\theta$, $\xi$, $\phi$, and $\psi$ are coupled in the joint</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>posterior, so a sampling problem in one is a warning about the whole. The dissertation does not leave</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>this unexamined: it re-checks with longer chains and finds the focal patterns stable</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>(p. 60), and it compares the $a_i$-estimated against the $a_i$-fixed specification across</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>20 replications, where the results were consistent (a moderate, positive correlation, with</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>the mean $\phi$ and $\psi$ holding up; p. 61). What those checks cannot do is *substitute* for a convergence statistic: a stable</span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>pattern across longer runs, or matching means across replications, is a robustness</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>observation — it tells a reader the result is reproducible — not a formal $\hat{R}$/ESS</span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>demonstration that the coupled sampler has converged.</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>Second, the diffuse priors compound the issue: $\text{InverseGamma}(0.001, 1)$ on</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>$\sigma^2$ is extremely diffuse — its mode sits near 1 and, with shape $0.001 &lt; 1$, its</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>mean is not even finite, so it spreads enormous prior mass over large $\sigma^2$ (a very</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>heavy right tail) rather than piling mass near zero. The Limitations section (p. 74) flags that</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a><span class="in">`immer`</span>'s default inverse-gamma prior "has raised concerns in previous research," citing</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>Gelman (2006) by name. The one nuance to add is</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>*which* form Gelman criticized: the pathology is the $\text{InverseGamma}(\epsilon,</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>\epsilon)$ case — both parameters tiny — whose pile-up of mass near zero is the genuinely</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>long-criticized behavior, and that is not the $\text{InverseGamma}(0.001, 1)$ used here. With a</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>scale of 1, this prior behaves the opposite way near the boundary, so Gelman's specific</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>warning does not land on it. Even so, such a</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>heavy-tailed prior on $\sigma^2$ can slow mixing, and when convergence is uncertain its</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>influence on $\phi$ and $\psi$ cannot be cleanly separated from sampling noise.</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## The strongest counterargument</span></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>The record shows convergence was not ignored. The high $\hat{R}$ for some parameters is reported openly in the Limitations</span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>(p. 74); additional checks with *longer chains* found the focal patterns stable</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>(p. 60); the $a_i$-estimated specification was compared against the $a_i$-fixed specification across *20</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>replications* (p. 61) with consistent results; and the dissertation flags that <span class="in">`immer`</span>'s default</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>inverse-gamma prior "has raised concerns in previous research," citing Gelman (2006). This</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>is more convergence diligence than most applied MFRM papers show.</span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>The issue was never *awareness*; it is the *form* of the evidence. "The longer chains looked stable" and</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>"the means matched across 20 replications" are robustness observations, not convergence</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>statistics — they tell a reader the result is plausible, not that it is settled. The journal</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>version needs those same checks *formalized*: a true multi-chain $\hat{R}$, bulk- and</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a>tail-ESS, and an MCSE for each focal $\phi$ and $\psi$, so that "the patterns were stable"</span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>becomes "ESS = X, MCSE = Y, and each interpreted difference exceeds its MCSE by a comfortable</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>margin." The judgment-laden part is done; what remains is to report it in the</span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>currency the reviewer counts in.</span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="fu">## What would fix it</span></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fix-it</span></span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Run ≥ 4 independent chains** from dispersed starting values — the prerequisite for a</span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>  meaningful $\hat{R}$ — each much longer than 1,000/300 (treat Patz's 10,000/1,000 or</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>  Casabianca's 105,000/5,000 as a floor, and extend if diagnostics warrant). The obstacle</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>  is that <span class="in">`immer`</span> provides only one chain by default, so there are two realistic routes to</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>  the four. The immediate, low-cost one: run <span class="in">`immer`</span> ≥ 4 times from different seeds and</span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>  dispersed starting values, then pool the runs as chains and compute the diagnostics</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>  across them. The more thorough one — and the better long-run investment — is to</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>  re-implement the HRM in a native multi-chain sampler (Stan, JAGS, or NIMBLE), which runs</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>  the chains jointly and yields proper multi-chain $\hat{R}$, bulk-/tail-ESS, and MCSE</span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>  directly.</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Report, for every focal parameter** ($\phi_r$, $\psi_r$), the true multi-chain</span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>  $\hat{R}$, the bulk- and tail-ESS, and the MCSE — and state in the text that each</span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>  interpreted difference exceeds its MCSE by a comfortable margin.</span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Show trace plots and per-chain posterior-density overlays** for the focal parameters</span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>  as supplementary material — the most direct evidence a reader can inspect.</span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Run a prior-sensitivity analysis** for $\phi$ and $\psi$; replace</span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>  $\text{InverseGamma}(0.001,1)$ with a half-Normal or half-Cauchy on the SD scale (which</span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>  mixes far better), and consider a $\log(\psi)$ / positivity-constrained parameterization</span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>  to avoid boundary pathologies.</span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Add posterior-predictive checks** — simulate replicated ratings from the posterior</span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>  and compare to the observed data — as independent evidence of fit and reach.</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a><span class="fu">## What a reviewer will ask</span></span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## What a reviewer will ask</span></span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>"What are the effective sample size and Monte-Carlo standard error of $\phi$ and $\psi$ at</span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>700 draws from a single chain — and are the between-condition differences you interpret</span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>larger than that Monte-Carlo error? And how was an $\hat{R}$ computed from a single chain?"</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a><span class="in">`immer`</span> provides a single chain by default,</span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>and a short run is an understandable choice under real time and compute limits — a</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>software-and-resources constraint, not a methodological error. The point is only what the</span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>*journal* version needs to show. Under the current setup the ESS</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>is likely single digits to low tens, the MCSE is of the same order as the reported differences,</span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>and the $\hat{R}$ came from a split-chain approximation that itself flagged problems.</span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>The goal of the revision is</span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>to answer with specific numbers — ESS = X, MCSE = Y, interpreted difference =</span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>Z, and a large Z/Y. This is achievable, and getting there makes the</span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a>HRM results persuasive rather than merely plausible.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Methodological Notes on Two Rater-Effect Simulation Studies</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; The ‘misfit’ rater is a coin flip – Methodological Notes on Two Rater-Effect Simulation Studies</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04-mcmc-too-short.html" rel="next">
+<link href="./02-location-collapse.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ad65642396706b98715c55ca42ec91d9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-83de1d5ff08d85e86a2a35fc8bcbf734.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-ad65642396706b98715c55ca42ec91d9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-psi-not-identified.html">Part I — The critical issues</a></li><li class="breadcrumb-item"><a href="./03-misfit-is-noise.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The ‘misfit’ rater is a coin flip</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Methodological Notes on Two Rater-Effect Simulation Studies</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-executive-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Executive summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I — The critical issues</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-psi-not-identified.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The HRM’s ψ cannot be estimated for misfit raters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-location-collapse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The vanishing severe rater: a location estimate that collapses with sample size</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-misfit-is-noise.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The ‘misfit’ rater is a coin flip</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-mcmc-too-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">A single short MCMC chain cannot carry the HRM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-what-is-sensitivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">What did we actually measure? Sensitivity vs.&nbsp;a shift in means</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-marginal-vs-residual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Local dependence: marginal correlation vs.&nbsp;residual correlation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Part II — Additional concerns &amp; the path forward</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-additional-concerns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Additional concerns</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-revision-roadmap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">A minimal-revision roadmap (and the questions to expect)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Reproducibility appendix</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-the-dissertation-does" id="toc-what-the-dissertation-does" class="nav-link active" data-scroll-target="#what-the-dissertation-does"><span class="header-section-number">3.1</span> What the dissertation does</a></li>
+  <li><a href="#why-this-threatens-the-conclusion" id="toc-why-this-threatens-the-conclusion" class="nav-link" data-scroll-target="#why-this-threatens-the-conclusion"><span class="header-section-number">3.2</span> Why this threatens the conclusion</a></li>
+  <li><a href="#what-would-fix-it" id="toc-what-would-fix-it" class="nav-link" data-scroll-target="#what-would-fix-it"><span class="header-section-number">3.3</span> What would fix it</a></li>
+  <li><a href="#what-a-reviewer-will-ask" id="toc-what-a-reviewer-will-ask" class="nav-link" data-scroll-target="#what-a-reviewer-will-ask"><span class="header-section-number">3.4</span> What a reviewer will ask</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-psi-not-identified.html">Part I — The critical issues</a></li><li class="breadcrumb-item"><a href="./03-misfit-is-noise.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The ‘misfit’ rater is a coin flip</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The ‘misfit’ rater is a coin flip</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Chapter 3 is one of the more technically ambitious parts of the study: it builds inaccuracy directly into the data-generating model rather than gesturing at it. This chapter concerns a single modeling choice inside that design that, once adjusted, strengthens the journal version. The relevant pages are 55–58.</p>
+<section id="what-the-dissertation-does" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="what-the-dissertation-does"><span class="header-section-number">3.1</span> What the dissertation does</h2>
+<p>To create a “generally inaccurate” or misfitting rater, the simulation adds a rater slope (discrimination) parameter <span class="math inline">\(\alpha\)</span> to the data-generating MFRM (Equation 7, introduced p.&nbsp;55). Normal raters get <span class="math inline">\(\alpha = 1\)</span> — the standard Rasch assumption. Inaccurate raters take a decisive step: “we manipulated the slope parameter by <strong>setting its mean to 0</strong>, whereas the slope parameter for the normal raters was fixed at 1” (p.&nbsp;57). The rationale is that “when raters have lower slopes, they exhibit less discrimination between examinees” (p.&nbsp;57), and this third condition is labeled “general inaccuracy (i.e., misfit or haphazard ratings)” (p.&nbsp;57). On the HRM side, “rater misfit can be broadly interpreted as rater variability and is reflected in the psi parameter” (p.&nbsp;58).</p>
+<p>The intuition is sound — a rater who cannot tell high-ability from low-ability examinees is, in a real sense, inaccurate. The question is how far the design takes that intuition: all the way to <span class="math inline">\(\alpha = 0\)</span>.</p>
+</section>
+<section id="why-this-threatens-the-conclusion" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="why-this-threatens-the-conclusion"><span class="header-section-number">3.2</span> Why this threatens the conclusion</h2>
+<p>Consider what a slope of exactly zero does, worked out from Equation 7. In the adjacent-category model, the log-odds of category <span class="math inline">\(k\)</span> over category <span class="math inline">\(k-1\)</span> is <span class="math inline">\(\alpha\)</span> times the usual Rasch term. Set <span class="math inline">\(\alpha = 0\)</span> and <strong>every</strong> one of those log-odds collapses to zero at once — which forces all five categories to probability exactly <span class="math inline">\(0.20\)</span>. The distribution is perfectly uniform, independent of the examinee’s ability, the item, and even the rater’s own severity <span class="math inline">\(\lambda\)</span> (because <span class="math inline">\(\lambda\)</span> is multiplied by <span class="math inline">\(\alpha\)</span>, and anything times zero is zero). The rater is, quite literally, rolling a five-sided die.</p>
+<p>One point is worth stating plainly, because the design is a little more careful than <em>every</em> misfit rater being a die. The slope <em>mean</em> is set to 0 — the misfit slopes are drawn from a distribution centered at zero (almost certainly <span class="math inline">\(\alpha \sim N(0, 0.05)\)</span>, mirroring the normal raters’ <span class="math inline">\(N(1, 0.05)\)</span>), not pinned there. So <span class="math inline">\(\alpha = 0\)</span> is the <strong>expected</strong>, typical misfit rater — the case the algebra above describes — and individual misfit raters scatter around it: at the study’s sample sizes their realized score-to-ability correlations spread by roughly <span class="math inline">\(\pm 0.4\)</span> (largely finite-sample noise plus the small slope spread), with a mean near zero. That refinement does not soften the point — it sharpens it. Because the <em>mean</em> slope is 0, the condition is centered on the no-signal case: on average these raters carry no ability signal, so the inflated fit is still the expected, mechanical consequence — a positive control, not evidence of sensitivity to realistic inaccuracy. The accurate claim is that the <em>typical</em> misfit rater is a coin flip, not that every one is exactly uniform.</p>
+<p>Equation 7 was re-implemented from scratch in R — not a re-run of TAM, but a ground-up reconstruction — and confirmed. <a href="#fig-misfit-noise" class="quarto-xref">Figure&nbsp;<span>3.1</span></a> makes it concrete. Panel A puts the two raters side by side: the accurate rater (<span class="math inline">\(\alpha = 1\)</span>) produces a peaked, ability-tracking distribution with a score-to-ability correlation of about <strong>0.88</strong>; the “inaccurate” rater (<span class="math inline">\(\alpha = 0\)</span>) produces five equal bars at <span class="math inline">\(0.20\)</span>, with a correlation of about <strong>0.00</strong>. These are not two points on a quality continuum — they are qualitatively different things. Panel B sweeps the slope from 1 down to 0 and shows the MFRM infit/outfit rising smoothly from <span class="math inline">\(\approx 1.0\)</span> to <span class="math inline">\(\approx 3.5\)</span>–<span class="math inline">\(4.3\)</span>, passing straight through the dissertation’s reported misfit band (<span class="math inline">\(\approx 2.0\)</span>–<span class="math inline">\(3.2\)</span>). The inflated fit is a <em>mechanical consequence of the slope knob</em>, not a discovery.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the R code (implements the dissertation’s Eq. 7 from scratch)</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({ <span class="fu">library</span>(ggplot2); <span class="fu">library</span>(patchwork) })</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/common.R"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260609</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>N_EX <span class="ot">&lt;-</span> <span class="dv">500</span>L; I <span class="ot">&lt;-</span> <span class="dv">5</span>L; delta <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(I, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>one_rater_observed <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, alpha, <span class="at">lam =</span> <span class="dv">0</span>) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  obs <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>L, <span class="fu">length</span>(theta), I)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(I)) obs[, i] <span class="ot">&lt;-</span> <span class="fu">simulate_rating</span>(<span class="fu">pcmfrm_probs</span>(theta, lam, delta[i], <span class="at">alpha =</span> alpha))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  obs</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>oracle_fit <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, observed) {              <span class="co"># scored vs the slope-1 analysis model</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  z2 <span class="ot">&lt;-</span> var <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(I)) {</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">pcmfrm_probs</span>(theta, <span class="dv">0</span>, delta[i], <span class="at">alpha =</span> <span class="dv">1</span>); ex <span class="ot">&lt;-</span> <span class="fu">expected_score</span>(p); v <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="fu">score_variance</span>(p), <span class="fl">1e-9</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    z2 <span class="ot">&lt;-</span> <span class="fu">c</span>(z2, (observed[, i] <span class="sc">-</span> ex)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> v); var <span class="ot">&lt;-</span> <span class="fu">c</span>(var, v)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">infit =</span> <span class="fu">sum</span>(z2 <span class="sc">*</span> var) <span class="sc">/</span> <span class="fu">sum</span>(var), <span class="at">outfit =</span> <span class="fu">mean</span>(z2))</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Panel A: accurate vs misfit category frequencies -----------------------</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>theta_A <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N_EX)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>obs_norm <span class="ot">&lt;-</span> <span class="fu">one_rater_observed</span>(theta_A, <span class="dv">1</span>); obs_mis <span class="ot">&lt;-</span> <span class="fu">one_rater_observed</span>(theta_A, <span class="dv">0</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>freq_norm <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(<span class="fu">as.integer</span>(obs_norm) <span class="sc">+</span> <span class="dv">1</span>L, K) <span class="sc">/</span> <span class="fu">length</span>(obs_norm)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>freq_mis  <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(<span class="fu">as.integer</span>(obs_mis)  <span class="sc">+</span> <span class="dv">1</span>L, K) <span class="sc">/</span> <span class="fu">length</span>(obs_mis)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>r_norm <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">rowSums</span>(obs_norm), theta_A); r_mis <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">rowSums</span>(obs_mis), theta_A)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>dfA <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">data.frame</span>(<span class="at">rater =</span> <span class="st">"Accurate rater (slope = 1)"</span>, <span class="at">k =</span> <span class="fu">factor</span>(CATS), <span class="at">freq =</span> freq_norm),</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>             <span class="fu">data.frame</span>(<span class="at">rater =</span> <span class="st">"Misfit rater (slope = 0)"</span>,  <span class="at">k =</span> <span class="fu">factor</span>(CATS), <span class="at">freq =</span> freq_mis))</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>dfA<span class="sc">$</span>rater <span class="ot">&lt;-</span> <span class="fu">factor</span>(dfA<span class="sc">$</span>rater, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Accurate rater (slope = 1)"</span>, <span class="st">"Misfit rater (slope = 0)"</span>))</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>annA <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rater =</span> <span class="fu">factor</span>(<span class="fu">levels</span>(dfA<span class="sc">$</span>rater), <span class="at">levels =</span> <span class="fu">levels</span>(dfA<span class="sc">$</span>rater)),</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label =</span> <span class="fu">c</span>(<span class="fu">sprintf</span>(<span class="st">"r = %.2f"</span>, r_norm), <span class="fu">sprintf</span>(<span class="st">"r = %.2f"</span>, r_mis)))</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>pA <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dfA, <span class="fu">aes</span>(k, freq, <span class="at">fill =</span> rater)) <span class="sc">+</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> .<span class="dv">7</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> .<span class="dv">2</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">linewidth =</span> .<span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">65</span>, <span class="at">y =</span> .<span class="dv">215</span>, <span class="at">label =</span> <span class="st">"Uniform 1/5"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">2.9</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"grey35"</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> annA, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">4.45</span>, <span class="at">y =</span> .<span class="dv">37</span>, <span class="at">label =</span> label), <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>            <span class="at">colour =</span> <span class="fu">c</span>(<span class="fu">unname</span>(pal_companion[<span class="st">"accent"</span>]), <span class="fu">unname</span>(pal_companion[<span class="st">"misfit"</span>]))) <span class="sc">+</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> rater) <span class="sc">+</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Accurate rater (slope = 1)"</span> <span class="ot">=</span> <span class="fu">unname</span>(pal_companion[<span class="st">"accent"</span>]),</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Misfit rater (slope = 0)"</span>  <span class="ot">=</span> <span class="fu">unname</span>(pal_companion[<span class="st">"misfit"</span>])), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">45</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, .<span class="dv">4</span>, .<span class="dv">1</span>),</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">".10"</span>, <span class="st">".20"</span>, <span class="st">".30"</span>, <span class="st">".40"</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"(A)  The 'misfit' rater is a coin-flip"</span>,</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"slope = 0  →  every category equally likely; no signal about ability"</span>,</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Rating category (0–4)"</span>, <span class="at">y =</span> <span class="st">"Relative frequency"</span>) <span class="sc">+</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">9.5</span>),</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>                              <span class="at">strip.background =</span> <span class="fu">element_blank</span>(), <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="fl">1.2</span>, <span class="st">"lines"</span>),</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>                              <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>                              <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Panel B: fit MSE vs slope ----------------------------------------------</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260610</span>)</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>alphas <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">1</span>); n_rep <span class="ot">&lt;-</span> <span class="dv">60</span>L</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>sweep <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(alphas, <span class="cf">function</span>(a) {</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  fr <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_rep, { th <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N_EX); ob <span class="ot">&lt;-</span> <span class="fu">one_rater_observed</span>(th, a); f <span class="ot">&lt;-</span> <span class="fu">oracle_fit</span>(th, ob)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">c</span>(f<span class="sc">$</span>infit, f<span class="sc">$</span>outfit, <span class="fu">cor</span>(<span class="fu">rowSums</span>(ob), th)) })</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">alpha =</span> a, <span class="at">infit =</span> <span class="fu">mean</span>(fr[<span class="dv">1</span>, ]), <span class="at">outfit =</span> <span class="fu">mean</span>(fr[<span class="dv">2</span>, ]), <span class="at">r =</span> <span class="fu">mean</span>(fr[<span class="dv">3</span>, ]))</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>dfB <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">data.frame</span>(<span class="at">alpha =</span> sweep<span class="sc">$</span>alpha, <span class="at">value =</span> sweep<span class="sc">$</span>infit, <span class="at">stat =</span> <span class="st">"Infit MSE"</span>),</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>             <span class="fu">data.frame</span>(<span class="at">alpha =</span> sweep<span class="sc">$</span>alpha, <span class="at">value =</span> sweep<span class="sc">$</span>outfit, <span class="at">stat =</span> <span class="st">"Outfit MSE"</span>))</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>pB <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dfB, <span class="fu">aes</span>(alpha, value, <span class="at">colour =</span> stat)) <span class="sc">+</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">xmax =</span> <span class="cn">Inf</span>, <span class="at">ymin =</span> <span class="fl">2.0</span>, <span class="at">ymax =</span> <span class="fl">3.2</span>, <span class="at">fill =</span> <span class="st">"#C0392B"</span>, <span class="at">alpha =</span> .<span class="dv">08</span>) <span class="sc">+</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">82</span>, <span class="at">y =</span> <span class="fl">2.6</span>, <span class="at">label =</span> <span class="st">"dissertation's</span><span class="sc">\n</span><span class="st">misfit band</span><span class="sc">\n</span><span class="st">(2.0–3.2)"</span>, <span class="at">hjust =</span> <span class="dv">1</span>,</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">colour =</span> <span class="st">"#C0392B"</span>, <span class="at">lineheight =</span> .<span class="dv">95</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">linewidth =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">9</span>, <span class="at">y =</span> <span class="fl">1.28</span>, <span class="at">label =</span> <span class="st">"expected fit = 1.0"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">2.9</span>,</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"grey45"</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">97</span>, <span class="at">y =</span> .<span class="dv">55</span>, <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"r = %.2f"</span>, sweep<span class="sc">$</span>r[sweep<span class="sc">$</span>alpha <span class="sc">==</span> <span class="dv">1</span>]),</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"grey30"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">03</span>, <span class="at">y =</span> .<span class="dv">55</span>, <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"r = %.2f"</span>, sweep<span class="sc">$</span>r[sweep<span class="sc">$</span>alpha <span class="sc">==</span> <span class="dv">0</span>]),</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"grey30"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Infit MSE"</span> <span class="ot">=</span> <span class="fu">unname</span>(pal_companion[<span class="st">"misfit"</span>]),</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"Outfit MSE"</span> <span class="ot">=</span> <span class="fu">unname</span>(pal_companion[<span class="st">"severe"</span>]))) <span class="sc">+</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reverse</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0</span><span class="sc">\n</span><span class="st">(misfit)"</span>, <span class="st">".2"</span>, <span class="st">".4"</span>, <span class="st">".6"</span>, <span class="st">".8"</span>, <span class="st">"1</span><span class="sc">\n</span><span class="st">(accurate)"</span>)) <span class="sc">+</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>), <span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"(B)  'Inaccuracy' is just a signal-to-noise knob"</span>,</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"MFRM fit rises deterministically as the slope drops — a positive control, not evidence of sensitivity"</span>,</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Data-generating slope α (rater discrimination)"</span>, <span class="at">y =</span> <span class="st">"Fit MSE (infit / outfit)"</span>) <span class="sc">+</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>                              <span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>pA <span class="sc">|</span> pB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-misfit-noise" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-misfit-noise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="03-misfit-is-noise_files/figure-html/fig-misfit-noise-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-misfit-noise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3.1: A ‘misfit’ rater is a coin flip. <strong>(A)</strong> With the slope set to 0, the rater’s five categories are essentially equally likely (≈ 0.20 each) and the score-to-ability correlation is ≈ 0 — versus a peaked, ability-tracking profile (r ≈ 0.88) for an accurate rater. <strong>(B)</strong> Turning the data-generating slope α from 1 (accurate) down to 0 (misfit) makes the MFRM fit mean-square rise smoothly from ≈ 1.0 through the dissertation’s reported misfit band (≈ 2.0–3.2). The inflated fit is a deterministic function of the slope, not a finding.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Three threats follow, and they compound.</p>
+<p><strong>Detection is trivialized.</strong> A pure-noise rater whose scores carry <em>zero</em> information is not a realistic model of human inaccuracy. Real raters who are inconsistent, fatigued, or idiosyncratic still have <em>some</em> slope — they discriminate imperfectly, not randomly. So the reported detection rates are for an extreme case any reasonable index can flag, not for the realistic inaccuracy a reviewer cares about.</p>
+<p><strong>Severity becomes unidentifiable.</strong> Because <span class="math inline">\(\lambda\)</span> is multiplied by zero, the severity of an <span class="math inline">\(\alpha = 0\)</span> rater has no influence on the data and cannot be estimated. This is the <em>same</em> manipulation that, in Chapter 1, leaves the HRM’s <span class="math inline">\(\psi\)</span> with no finite value — so Chapters 1 and 3 are two faces of one design choice. Naming that link explicitly strengthens both.</p>
+<p><strong>The MFRM has a home-field advantage.</strong> Infit and outfit measure deviation from the Rasch model — and the misfit data were made by taking a Rasch/MFRM structure and <em>erasing</em> it (<span class="math inline">\(\alpha = 0\)</span>). Asking the MFRM to notice that its own structure has been removed is not a neutral test of detection power; it is a model recognizing its own data. A reviewer will see this at once.</p>
+<p>And the advantage is not confined to these misfit cells — it runs through all of Study 2. Every condition, None and Severity no less than Misfit, is generated from the same adapted MFRM of Equation 7; the fitted MFRM is that very model with the slope switched off, while the HRM, whose first stage is a GPCM, must recover from a rival model’s data. So the MFRM is always playing at home. The dissertation anticipated exactly this: its Purpose states that “<em>rather than comparing the two models directly</em>, we aim to examine the different patterns each model exhibits under various conditions” (p.&nbsp;48), and that framing genuinely defuses the concern — a study of how <em>each</em> model behaves on its own terms is not a rigged head-to-head. The catch is that the conclusions still read comparatively in places — which model is <em>more</em> sensitive, and where — and the instant a comparison is drawn, the home-field tilt is back. The clean way to keep the comparative payoff without the tilt is the cross-generative design already in the Fix-it: generate from each model and score with both, so any remaining comparison is symmetric and neither model is graded on its home turf.</p>
+<p>There is also an internal tension. The dissertation’s review chapter stresses that fit statistics are <strong>non-specific</strong> — a high infit/outfit can come from inconsistency, halo, central tendency, range restriction, criterion bias, or model misspecification, not only from haphazard noise (the dissertation says so, p.&nbsp;58). Yet Chapters 3–4 read a <em>rise in fit</em> directly as “inaccuracy detection.” Under known simulation truth that is fine; but it means the detection claim is conditional on the truth being pure-noise — exactly the specificity the review warns cannot be assumed in practice.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The strongest counterargument
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Setting the misfit slope mean to 0 was not an oversight — it was a <em>deliberate, clean stress test</em>. To verify that the fit indices can detect inaccuracy at all, the disciplined first move is to hand them the most extreme, least ambiguous case and confirm they fire; if an index failed even <em>here</em>, it would fail everywhere. Choosing the limiting case to establish that floor is sound design in the tradition of a positive control, not a belief that real raters roll dice.</p>
+<p>And yet — <span class="math inline">\(\alpha = 0\)</span> is a legitimate <em>positive control</em>, and Panel B’s smooth slope-to-fit curve is genuinely reassuring. What a positive control establishes, though, is only that the index fires in the limit; it cannot, by itself, license the broader claim that the indices are sensitive to the inaccuracy raters show <em>in practice</em> — halo, central tendency, partial mis-discrimination (<span class="math inline">\(\alpha = 0.2, 0.5,
+0.8\)</span>), criterion bias. <span class="math inline">\(\alpha = 0\)</span> stays as the anchor; the revision adds those realistic mechanisms alongside it and scopes the conclusion to match — “the indices flag a pure-noise rater” is proven now, “the indices detect realistic inaccuracy” needs the realistic cases to earn it.</p>
+</div>
+</div>
+</section>
+<section id="what-would-fix-it" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="what-would-fix-it"><span class="header-section-number">3.3</span> What would fix it</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Fix-it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Widen the inaccuracy operationalization.</strong> Replace the single <span class="math inline">\(\alpha = 0\)</span> point with partial reductions (<span class="math inline">\(\alpha = 0.2, 0.5, 0.8\)</span>) <em>and</em> mechanisms drawn from the literature the review synthesizes: threshold/category-usage distortion, central tendency, extremity, criterion- or subgroup-specific bias, and mixture (occasional) noise. These give <em>detection curves</em> over realistic raters, not one extreme point.</li>
+<li><strong>Use a neutral, cross-generative design.</strong> Generate from a third model that is neither the MFRM nor the HRM (or cross the two symmetrically — generate from each, score with both), so neither model is graded on its home turf and a genuine comparison is possible.</li>
+<li><strong>Reconcile with the non-specificity point.</strong> Add a Discussion sentence acknowledging that elevated fit is <em>consistent with</em> — not <em>diagnostic of</em> — inaccuracy versus other effects, and frame the rates as “sensitivity to a pure-noise pattern.”</li>
+<li><strong>Scope the current result honestly.</strong> One sentence: the present finding shows the indices can flag a rater whose scores are informationally empty. That is real and useful — it just needs the right frame.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="what-a-reviewer-will-ask" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="what-a-reviewer-will-ask"><span class="header-section-number">3.4</span> What a reviewer will ask</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>What a reviewer will ask
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“Is a slope of zero — pure uniform noise — a valid operationalization of ‘general inaccuracy’? Human raters who are inattentive or inconsistent still carry <em>some</em> information about examinees. And since infit/outfit measure deviation from the very Rasch model that generated the data, how do you separate the MFRM’s structural advantage from a genuine finding — would the same rates hold under a model-neutral generating process?”</p>
+</div>
+</div>
+<p>A careful reviewer will not be hostile here — they will likely admire the design and want its bounding conditions. The strongest move is to preempt them: state that <span class="math inline">\(\alpha = 0\)</span> is an extreme case, show (Panel B) that the slope-to-fit relationship is smooth and continuous, and offer the cross-generative extension. Reviewers reward authors who have already thought the critique through — and the revisions above do exactly that.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02-location-collapse.html" class="pagination-link" aria-label="The vanishing severe rater: a location estimate that collapses with sample size">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The vanishing severe rater: a location estimate that collapses with sample size</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04-mcmc-too-short.html" class="pagination-link" aria-label="A single short MCMC chain cannot carry the HRM">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">A single short MCMC chain cannot carry the HRM</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "The 'misfit' rater is a coin flip"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Chapter 3 is one of the more technically ambitious parts of the study: it builds</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>inaccuracy directly into the data-generating model rather than gesturing at it. This</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>chapter concerns a single modeling choice inside that design that, once adjusted,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>strengthens the journal version. The relevant pages are 55–58.</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## What the dissertation does</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>To create a "generally inaccurate" or misfitting rater, the simulation adds a rater</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>slope (discrimination) parameter $\alpha$ to the data-generating MFRM (Equation 7,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>introduced p. 55). Normal raters get $\alpha = 1$ — the standard Rasch assumption.</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>Inaccurate raters take a decisive step: "we manipulated the slope parameter by **setting</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>its mean to 0**, whereas the slope parameter for the normal raters was fixed at 1"</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>(p. 57). The rationale is that "when raters have lower slopes, they exhibit less</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>discrimination between examinees" (p. 57), and this third condition is labeled "general</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>inaccuracy (i.e., misfit or haphazard ratings)" (p. 57). On the HRM side, "rater misfit</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>can be broadly interpreted as rater variability and is reflected in the psi parameter"</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>(p. 58).</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>The intuition is sound — a rater who cannot tell high-ability from low-ability examinees</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>is, in a real sense, inaccurate. The question is how far the design takes that intuition:</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>all the way to $\alpha = 0$.</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why this threatens the conclusion</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>Consider what a slope of exactly zero does, worked out from Equation 7. In the</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>adjacent-category model, the log-odds of category $k$ over category $k-1$ is</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>$\alpha$ times the usual Rasch term. Set $\alpha = 0$ and **every** one of those</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>log-odds collapses to zero at once — which forces all five categories to probability</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>exactly $0.20$. The distribution is perfectly uniform, independent of the examinee's</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>ability, the item, and even the rater's own severity $\lambda$ (because $\lambda$ is</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>multiplied by $\alpha$, and anything times zero is zero). The rater is, quite literally,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>rolling a five-sided die.</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>One point is worth stating plainly, because the design is a little more careful</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>than *every* misfit rater being a die. The slope *mean* is set to 0 — the misfit slopes</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>are drawn from a distribution centered at zero (almost certainly $\alpha \sim N(0, 0.05)$,</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>mirroring the normal raters' $N(1, 0.05)$), not pinned there. So $\alpha = 0$ is the</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>**expected**, typical misfit rater — the case the algebra above describes — and individual</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>misfit raters scatter around it: at the study's sample sizes their realized score-to-ability</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>correlations spread by roughly $\pm 0.4$ (largely finite-sample noise plus the small slope</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>spread), with a mean near zero. That refinement does not soften the point — it sharpens</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>it. Because the *mean* slope is 0, the condition is centered on the no-signal case: on</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>average these raters carry no ability signal, so the inflated fit is still the expected,</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>mechanical consequence — a positive control, not evidence of sensitivity to realistic</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>inaccuracy. The accurate claim is that the *typical* misfit rater is a coin flip, not that</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>every one is exactly uniform.</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>Equation 7 was re-implemented from scratch in R — not a re-run of TAM, but a</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>ground-up reconstruction — and confirmed. @fig-misfit-noise makes it concrete. Panel</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>A puts the two raters side by side: the accurate rater ($\alpha = 1$) produces a peaked,</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>ability-tracking distribution with a score-to-ability correlation of about **0.88**; the</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>"inaccurate" rater ($\alpha = 0$) produces five equal bars at $0.20$, with a correlation</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>of about **0.00**. These are not two points on a quality continuum — they are</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>qualitatively different things. Panel B sweeps the slope from 1 down to 0 and shows the</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>MFRM infit/outfit rising smoothly from $\approx 1.0$ to $\approx 3.5$–$4.3$, passing</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>straight through the dissertation's reported misfit band ($\approx 2.0$–$3.2$). The</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>inflated fit is a *mechanical consequence of the slope knob*, not a discovery.</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-misfit-noise</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A 'misfit' rater is a coin flip. **(A)** With the slope set to 0, the rater's five categories are essentially equally likely (≈ 0.20 each) and the score-to-ability correlation is ≈ 0 — versus a peaked, ability-tracking profile (r ≈ 0.88) for an accurate rater. **(B)** Turning the data-generating slope α from 1 (accurate) down to 0 (misfit) makes the MFRM fit mean-square rise smoothly from ≈ 1.0 through the dissertation's reported misfit band (≈ 2.0–3.2). The inflated fit is a deterministic function of the slope, not a finding."</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 9</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Show the R code (implements the dissertation's Eq. 7 from scratch)"</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>({ <span class="fu">library</span>(ggplot2); <span class="fu">library</span>(patchwork) })</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/common.R"</span>)</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260609</span>)</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>N_EX <span class="ot">&lt;-</span> <span class="dv">500</span>L; I <span class="ot">&lt;-</span> <span class="dv">5</span>L; delta <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(I, <span class="dv">0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>one_rater_observed <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, alpha, <span class="at">lam =</span> <span class="dv">0</span>) {</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>  obs <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">0</span>L, <span class="fu">length</span>(theta), I)</span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(I)) obs[, i] <span class="ot">&lt;-</span> <span class="fu">simulate_rating</span>(<span class="fu">pcmfrm_probs</span>(theta, lam, delta[i], <span class="at">alpha =</span> alpha))</span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>  obs</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>oracle_fit <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, observed) {              <span class="co"># scored vs the slope-1 analysis model</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>  z2 <span class="ot">&lt;-</span> var <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(I)) {</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">&lt;-</span> <span class="fu">pcmfrm_probs</span>(theta, <span class="dv">0</span>, delta[i], <span class="at">alpha =</span> <span class="dv">1</span>); ex <span class="ot">&lt;-</span> <span class="fu">expected_score</span>(p); v <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="fu">score_variance</span>(p), <span class="fl">1e-9</span>)</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>    z2 <span class="ot">&lt;-</span> <span class="fu">c</span>(z2, (observed[, i] <span class="sc">-</span> ex)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> v); var <span class="ot">&lt;-</span> <span class="fu">c</span>(var, v)</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">infit =</span> <span class="fu">sum</span>(z2 <span class="sc">*</span> var) <span class="sc">/</span> <span class="fu">sum</span>(var), <span class="at">outfit =</span> <span class="fu">mean</span>(z2))</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Panel A: accurate vs misfit category frequencies -----------------------</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>theta_A <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N_EX)</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>obs_norm <span class="ot">&lt;-</span> <span class="fu">one_rater_observed</span>(theta_A, <span class="dv">1</span>); obs_mis <span class="ot">&lt;-</span> <span class="fu">one_rater_observed</span>(theta_A, <span class="dv">0</span>)</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>freq_norm <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(<span class="fu">as.integer</span>(obs_norm) <span class="sc">+</span> <span class="dv">1</span>L, K) <span class="sc">/</span> <span class="fu">length</span>(obs_norm)</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>freq_mis  <span class="ot">&lt;-</span> <span class="fu">tabulate</span>(<span class="fu">as.integer</span>(obs_mis)  <span class="sc">+</span> <span class="dv">1</span>L, K) <span class="sc">/</span> <span class="fu">length</span>(obs_mis)</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>r_norm <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">rowSums</span>(obs_norm), theta_A); r_mis <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">rowSums</span>(obs_mis), theta_A)</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>dfA <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">data.frame</span>(<span class="at">rater =</span> <span class="st">"Accurate rater (slope = 1)"</span>, <span class="at">k =</span> <span class="fu">factor</span>(CATS), <span class="at">freq =</span> freq_norm),</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>             <span class="fu">data.frame</span>(<span class="at">rater =</span> <span class="st">"Misfit rater (slope = 0)"</span>,  <span class="at">k =</span> <span class="fu">factor</span>(CATS), <span class="at">freq =</span> freq_mis))</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>dfA<span class="sc">$</span>rater <span class="ot">&lt;-</span> <span class="fu">factor</span>(dfA<span class="sc">$</span>rater, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Accurate rater (slope = 1)"</span>, <span class="st">"Misfit rater (slope = 0)"</span>))</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>annA <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">rater =</span> <span class="fu">factor</span>(<span class="fu">levels</span>(dfA<span class="sc">$</span>rater), <span class="at">levels =</span> <span class="fu">levels</span>(dfA<span class="sc">$</span>rater)),</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>                   <span class="at">label =</span> <span class="fu">c</span>(<span class="fu">sprintf</span>(<span class="st">"r = %.2f"</span>, r_norm), <span class="fu">sprintf</span>(<span class="st">"r = %.2f"</span>, r_mis)))</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>pA <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dfA, <span class="fu">aes</span>(k, freq, <span class="at">fill =</span> rater)) <span class="sc">+</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">width =</span> .<span class="dv">7</span>, <span class="at">colour =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> .<span class="dv">2</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">linewidth =</span> .<span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">65</span>, <span class="at">y =</span> .<span class="dv">215</span>, <span class="at">label =</span> <span class="st">"Uniform 1/5"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="fl">2.9</span>,</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"grey35"</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> annA, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fl">4.45</span>, <span class="at">y =</span> .<span class="dv">37</span>, <span class="at">label =</span> label), <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>            <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>            <span class="at">colour =</span> <span class="fu">c</span>(<span class="fu">unname</span>(pal_companion[<span class="st">"accent"</span>]), <span class="fu">unname</span>(pal_companion[<span class="st">"misfit"</span>]))) <span class="sc">+</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> rater) <span class="sc">+</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Accurate rater (slope = 1)"</span> <span class="ot">=</span> <span class="fu">unname</span>(pal_companion[<span class="st">"accent"</span>]),</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Misfit rater (slope = 0)"</span>  <span class="ot">=</span> <span class="fu">unname</span>(pal_companion[<span class="st">"misfit"</span>])), <span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">45</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, .<span class="dv">4</span>, .<span class="dv">1</span>),</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">".10"</span>, <span class="st">".20"</span>, <span class="st">".30"</span>, <span class="st">".40"</span>), <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"(A)  The 'misfit' rater is a coin-flip"</span>,</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"slope = 0  →  every category equally likely; no signal about ability"</span>,</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Rating category (0–4)"</span>, <span class="at">y =</span> <span class="st">"Relative frequency"</span>) <span class="sc">+</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="fl">9.5</span>),</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>                              <span class="at">strip.background =</span> <span class="fu">element_blank</span>(), <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="fl">1.2</span>, <span class="st">"lines"</span>),</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>                              <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>                              <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Panel B: fit MSE vs slope ----------------------------------------------</span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20260610</span>)</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>alphas <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">1</span>); n_rep <span class="ot">&lt;-</span> <span class="dv">60</span>L</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>sweep <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(alphas, <span class="cf">function</span>(a) {</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>  fr <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_rep, { th <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N_EX); ob <span class="ot">&lt;-</span> <span class="fu">one_rater_observed</span>(th, a); f <span class="ot">&lt;-</span> <span class="fu">oracle_fit</span>(th, ob)</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>                           <span class="fu">c</span>(f<span class="sc">$</span>infit, f<span class="sc">$</span>outfit, <span class="fu">cor</span>(<span class="fu">rowSums</span>(ob), th)) })</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">alpha =</span> a, <span class="at">infit =</span> <span class="fu">mean</span>(fr[<span class="dv">1</span>, ]), <span class="at">outfit =</span> <span class="fu">mean</span>(fr[<span class="dv">2</span>, ]), <span class="at">r =</span> <span class="fu">mean</span>(fr[<span class="dv">3</span>, ]))</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>}))</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>dfB <span class="ot">&lt;-</span> <span class="fu">rbind</span>(<span class="fu">data.frame</span>(<span class="at">alpha =</span> sweep<span class="sc">$</span>alpha, <span class="at">value =</span> sweep<span class="sc">$</span>infit, <span class="at">stat =</span> <span class="st">"Infit MSE"</span>),</span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>             <span class="fu">data.frame</span>(<span class="at">alpha =</span> sweep<span class="sc">$</span>alpha, <span class="at">value =</span> sweep<span class="sc">$</span>outfit, <span class="at">stat =</span> <span class="st">"Outfit MSE"</span>))</span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>pB <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dfB, <span class="fu">aes</span>(alpha, value, <span class="at">colour =</span> stat)) <span class="sc">+</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">xmax =</span> <span class="cn">Inf</span>, <span class="at">ymin =</span> <span class="fl">2.0</span>, <span class="at">ymax =</span> <span class="fl">3.2</span>, <span class="at">fill =</span> <span class="st">"#C0392B"</span>, <span class="at">alpha =</span> .<span class="dv">08</span>) <span class="sc">+</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">82</span>, <span class="at">y =</span> <span class="fl">2.6</span>, <span class="at">label =</span> <span class="st">"dissertation's</span><span class="sc">\n</span><span class="st">misfit band</span><span class="sc">\n</span><span class="st">(2.0–3.2)"</span>, <span class="at">hjust =</span> <span class="dv">1</span>,</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>           <span class="at">size =</span> <span class="fl">2.8</span>, <span class="at">colour =</span> <span class="st">"#C0392B"</span>, <span class="at">lineheight =</span> .<span class="dv">95</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey50"</span>, <span class="at">linewidth =</span> .<span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">9</span>, <span class="at">y =</span> <span class="fl">1.28</span>, <span class="at">label =</span> <span class="st">"expected fit = 1.0"</span>, <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="fl">2.9</span>,</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"grey45"</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>) <span class="sc">+</span></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.2</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">97</span>, <span class="at">y =</span> .<span class="dv">55</span>, <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"r = %.2f"</span>, sweep<span class="sc">$</span>r[sweep<span class="sc">$</span>alpha <span class="sc">==</span> <span class="dv">1</span>]),</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">1</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"grey30"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> .<span class="dv">03</span>, <span class="at">y =</span> .<span class="dv">55</span>, <span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"r = %.2f"</span>, sweep<span class="sc">$</span>r[sweep<span class="sc">$</span>alpha <span class="sc">==</span> <span class="dv">0</span>]),</span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>           <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">colour =</span> <span class="st">"grey30"</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">name =</span> <span class="cn">NULL</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Infit MSE"</span> <span class="ot">=</span> <span class="fu">unname</span>(pal_companion[<span class="st">"misfit"</span>]),</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>                                              <span class="st">"Outfit MSE"</span> <span class="ot">=</span> <span class="fu">unname</span>(pal_companion[<span class="st">"severe"</span>]))) <span class="sc">+</span></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reverse</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0</span><span class="sc">\n</span><span class="st">(misfit)"</span>, <span class="st">".2"</span>, <span class="st">".4"</span>, <span class="st">".6"</span>, <span class="st">".8"</span>, <span class="st">"1</span><span class="sc">\n</span><span class="st">(accurate)"</span>)) <span class="sc">+</span></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">6</span>), <span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"(B)  'Inaccuracy' is just a signal-to-noise knob"</span>,</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"MFRM fit rises deterministically as the slope drops — a positive control, not evidence of sensitivity"</span>,</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Data-generating slope α (rater discrimination)"</span>, <span class="at">y =</span> <span class="st">"Fit MSE (infit / outfit)"</span>) <span class="sc">+</span></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">clip =</span> <span class="st">"off"</span>) <span class="sc">+</span></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"grey40"</span>, <span class="at">size =</span> <span class="dv">9</span>),</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>                              <span class="at">legend.position =</span> <span class="st">"bottom"</span>, <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>pA <span class="sc">|</span> pB</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>Three threats follow, and they compound.</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>**Detection is trivialized.** A pure-noise rater whose scores carry *zero* information is</span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>not a realistic model of human inaccuracy. Real raters who are inconsistent, fatigued, or</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>idiosyncratic still have *some* slope — they discriminate imperfectly, not randomly. So</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>the reported detection rates are for an extreme case any reasonable index can flag, not</span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>for the realistic inaccuracy a reviewer cares about.</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>**Severity becomes unidentifiable.** Because $\lambda$ is multiplied by zero, the severity</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>of an $\alpha = 0$ rater has no influence on the data and cannot be estimated. This is the</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a>*same* manipulation that, in Chapter 1, leaves the HRM's $\psi$ with no finite value — so</span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>Chapters 1 and 3 are two faces of one design choice. Naming that link explicitly</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a>strengthens both.</span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>**The MFRM has a home-field advantage.** Infit and outfit measure deviation from the Rasch</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>model — and the misfit data were made by taking a Rasch/MFRM structure and *erasing* it</span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>($\alpha = 0$). Asking the MFRM to notice that its own structure has been removed is not a</span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>neutral test of detection power; it is a model recognizing its own data. A reviewer will</span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>see this at once.</span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a>And the advantage is not confined to these misfit cells — it runs through all of Study 2.</span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>Every condition, None and Severity no less than Misfit, is generated from the same adapted</span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>MFRM of Equation 7; the fitted MFRM is that very model with the slope switched off, while</span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>the HRM, whose first stage is a GPCM, must recover from a rival model's data. So the MFRM is</span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>always playing at home. The dissertation anticipated exactly this: its Purpose</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>states that "*rather than comparing the two models directly*, we aim to examine the</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>different patterns each model exhibits under various conditions" (p. 48), and that framing</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>genuinely defuses the concern — a study of how *each* model behaves on its own terms is not</span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>a rigged head-to-head. The catch is that the conclusions</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>still read comparatively in places — which model is *more* sensitive, and where — and the</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a>instant a comparison is drawn, the home-field tilt is back. The clean way to keep the</span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a>comparative payoff without the tilt is the cross-generative design already in the Fix-it:</span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a>generate from each model and score with both, so any remaining comparison is symmetric and</span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>neither model is graded on its home turf.</span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>There is also an internal tension. The dissertation's review chapter stresses that</span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a>fit statistics are **non-specific** — a high infit/outfit can come from inconsistency,</span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>halo, central tendency, range restriction, criterion bias, or model misspecification, not</span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a>only from haphazard noise (the dissertation says so, p. 58). Yet Chapters 3–4 read a</span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a>*rise in fit* directly as "inaccuracy detection." Under known simulation truth that is</span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>fine; but it means the detection claim is conditional on the truth being pure-noise —</span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>exactly the specificity the review warns cannot be assumed in practice.</span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## The strongest counterargument</span></span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>Setting the misfit slope mean to 0 was not an oversight — it was a</span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>*deliberate, clean stress test*. To verify that the fit indices can detect inaccuracy at</span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a>all, the disciplined first move is to hand them the most extreme, least ambiguous case and</span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>confirm they fire; if an index failed even *here*, it would fail everywhere. Choosing the</span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>limiting case to establish that floor is sound design in the tradition of a positive</span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>control, not a belief that real raters roll dice.</span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>And yet — $\alpha = 0$ is a legitimate</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>*positive control*, and Panel B's smooth slope-to-fit curve is genuinely reassuring. What a</span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>positive control establishes, though, is only that the index fires in the limit; it cannot,</span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>by itself, license the broader claim that the indices are sensitive to the inaccuracy raters</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>show *in practice* — halo, central tendency, partial mis-discrimination ($\alpha = 0.2, 0.5,</span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>0.8$), criterion bias. $\alpha = 0$ stays as the anchor; the revision adds those</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>realistic mechanisms alongside it and scopes the conclusion to match — "the indices flag a</span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>pure-noise rater" is proven now, "the indices detect realistic inaccuracy" needs the</span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>realistic cases to earn it.</span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a><span class="fu">## What would fix it</span></span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fix-it</span></span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Widen the inaccuracy operationalization.** Replace the single $\alpha = 0$ point with</span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a>  partial reductions ($\alpha = 0.2, 0.5, 0.8$) *and* mechanisms drawn from the</span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>  literature the review synthesizes: threshold/category-usage distortion, central</span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a>  tendency, extremity, criterion- or subgroup-specific bias, and mixture (occasional)</span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a>  noise. These give *detection curves* over realistic raters, not one extreme point.</span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Use a neutral, cross-generative design.** Generate from a third model that is neither</span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a>  the MFRM nor the HRM (or cross the two symmetrically — generate from each, score with</span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a>  both), so neither model is graded on its home turf and a genuine comparison is possible.</span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reconcile with the non-specificity point.** Add a Discussion sentence acknowledging</span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a>  that elevated fit is *consistent with* — not *diagnostic of* — inaccuracy versus other</span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a>  effects, and frame the rates as "sensitivity to a pure-noise pattern."</span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Scope the current result honestly.** One sentence: the present finding shows the</span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a>  indices can flag a rater whose scores are informationally empty. That is real and</span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a>  useful — it just needs the right frame.</span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a><span class="fu">## What a reviewer will ask</span></span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a><span class="fu">## What a reviewer will ask</span></span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a>"Is a slope of zero — pure uniform noise — a valid operationalization of 'general</span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a>inaccuracy'? Human raters who are inattentive or inconsistent still carry *some*</span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a>information about examinees. And since infit/outfit measure deviation from the very Rasch</span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a>model that generated the data, how do you separate the MFRM's structural advantage from a</span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a>genuine finding — would the same rates hold under a model-neutral generating process?"</span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>A careful reviewer will not be hostile here — they will likely admire the design and want</span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>its bounding conditions. The strongest move is to preempt them: state that $\alpha = 0$ is</span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a>an extreme case, show (Panel B) that the slope-to-fit relationship is smooth and</span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a>continuous, and offer the cross-generative extension. Reviewers reward authors who have</span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>already thought the critique through — and the revisions above do exactly that.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Methodological Notes on Two Rater-Effect Simulation Studies</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; The HRM’s ψ cannot be estimated for misfit raters – Methodological Notes on Two Rater-Effect Simulation Studies</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02-location-collapse.html" rel="next">
+<link href="./00-executive-summary.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ad65642396706b98715c55ca42ec91d9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-83de1d5ff08d85e86a2a35fc8bcbf734.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-ad65642396706b98715c55ca42ec91d9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-psi-not-identified.html">Part I — The critical issues</a></li><li class="breadcrumb-item"><a href="./01-psi-not-identified.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The HRM’s ψ cannot be estimated for misfit raters</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Methodological Notes on Two Rater-Effect Simulation Studies</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-executive-summary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Executive summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Part I — The critical issues</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-psi-not-identified.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The HRM’s ψ cannot be estimated for misfit raters</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-location-collapse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The vanishing severe rater: a location estimate that collapses with sample size</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-misfit-is-noise.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">The ‘misfit’ rater is a coin flip</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-mcmc-too-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">A single short MCMC chain cannot carry the HRM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-what-is-sensitivity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">What did we actually measure? Sensitivity vs.&nbsp;a shift in means</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-marginal-vs-residual.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Local dependence: marginal correlation vs.&nbsp;residual correlation</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Part II — Additional concerns &amp; the path forward</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-additional-concerns.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Additional concerns</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-revision-roadmap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">A minimal-revision roadmap (and the questions to expect)</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-reproducibility.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Reproducibility appendix</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-the-dissertation-does" id="toc-what-the-dissertation-does" class="nav-link active" data-scroll-target="#what-the-dissertation-does"><span class="header-section-number">1.1</span> What the dissertation does</a></li>
+  <li><a href="#why-this-threatens-the-conclusion" id="toc-why-this-threatens-the-conclusion" class="nav-link" data-scroll-target="#why-this-threatens-the-conclusion"><span class="header-section-number">1.2</span> Why this threatens the conclusion</a></li>
+  <li><a href="#what-would-fix-it" id="toc-what-would-fix-it" class="nav-link" data-scroll-target="#what-would-fix-it"><span class="header-section-number">1.3</span> What would fix it</a></li>
+  <li><a href="#what-a-reviewer-will-ask" id="toc-what-a-reviewer-will-ask" class="nav-link" data-scroll-target="#what-a-reviewer-will-ask"><span class="header-section-number">1.4</span> What a reviewer will ask</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-psi-not-identified.html">Part I — The critical issues</a></li><li class="breadcrumb-item"><a href="./01-psi-not-identified.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The HRM’s ψ cannot be estimated for misfit raters</span></a></li></ol></nav>
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The HRM’s ψ cannot be estimated for misfit raters</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The Hierarchical Rater Model (HRM) analysis is one of the most technically ambitious parts of the dissertation, and the core idea behind it is sound. This chapter examines a single parameter, the rater-variability parameter ψ, because a subtle estimation problem is hiding in the two “misfit” raters. A journal reviewer is likely to find it, and the question is better answered before it is asked.</p>
+<blockquote class="blockquote">
+<p><strong>Where this is in the dissertation.</strong> The signal-detection model is Equation (6), p.&nbsp;53; the misfit-rater ψ values appear in Tables 16–17, p.&nbsp;65; the prior on ψ is on p.&nbsp;61.</p>
+</blockquote>
+<section id="what-the-dissertation-does" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="what-the-dissertation-does"><span class="header-section-number">1.1</span> What the dissertation does</h2>
+<p>The HRM works in two stages. Stage 1 turns a student’s latent ability into an <em>ideal rating</em> ξ — the integer category (0–4) the response really deserves. Stage 2 is a signal-detection model (SDM): given that ideal rating, it describes the category a particular rater actually assigns. Equation (6), p.&nbsp;53, states it as</p>
+<p><span class="math display">\[
+P(X = k \mid \xi) \;\propto\; \exp\!\left(-\frac{\bigl(k - (\xi + \phi_r)\bigr)^2}{2\,\psi_r^2}\right),
+\]</span></p>
+<p>a discretized Gaussian centered on the rater’s ideal-plus-bias score <span class="math inline">\(\xi + \phi_r\)</span>, with spread <span class="math inline">\(\psi_r\)</span>. A small <span class="math inline">\(\psi_r\)</span> means the rater’s ratings cluster tightly around the ideal; the rater is consistent. As the dissertation puts it, “psi (<span class="math inline">\(\psi_r\)</span>) represents a rater’s variability, which indicates how consistent the rater is … smaller values are interpreted as higher-quality ratings” (p.&nbsp;53) — “the rater variability parameter (psi)” (p.&nbsp;61). That is an entirely sensible reading, <em>for raters who are actually reading the work in front of them.</em></p>
+<p>The dissertation then flags two raters whose ψ is far larger than everyone else’s — about <strong>16.65</strong> and <strong>31.85</strong> (SD 13.31) in Tables 16–17 (p.&nbsp;65) — and reads these large values as the HRM being sensitive to rater misfit. The intuition is sound. The trouble is what the likelihood surface actually looks like for a rater whose ratings carry no signal.</p>
+</section>
+<section id="why-this-threatens-the-conclusion" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="why-this-threatens-the-conclusion"><span class="header-section-number">1.2</span> Why this threatens the conclusion</h2>
+<p>It helps to sit with the intuition before the formalism. Imagine a rater who is not reading the essays at all — someone assigning scores by rolling a five-sided die. Their ratings are pure noise, equally likely to land on any category, with no relation to ξ. Now ask what Equation (6) does for that rater. As <span class="math inline">\(\psi_r\)</span> grows, the Gaussian in the exponent flattens; by <span class="math inline">\(\psi_r \approx 5\)</span> the five category probabilities are already nearly equal, and as <span class="math inline">\(\psi_r\)</span> keeps growing the distribution becomes <strong>exactly uniform</strong> — every category at 0.20, for <em>any</em> ideal rating. In the model’s own language, a rater who chooses at random is a rater with <span class="math inline">\(\psi_r \to \infty\)</span>. Panel A of <a href="#fig-psi-identified" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> shows this collapse.</p>
+<p>That is the heart of the problem. <em>Identification</em> means the data can, in principle, pin down a parameter — that there is a unique value that fits best. The tool for finding it is the <strong>profile log-likelihood</strong>: the log-likelihood as a function of <span class="math inline">\(\psi_r\)</span>, maximized over everything else. For a well-behaved parameter this curve rises to a clear <strong>peak</strong> at the best-fitting value (the maximum-likelihood estimate, MLE), then falls away. (Picture a topographic map: we are hunting for the single hilltop — a well-identified parameter has one; a non-identified one is an endless flat ridge with no summit.) For a genuine rater, a stack of essays gives the model real leverage, and the curve peaks cleanly.</p>
+<p>For a misfit rater whose ratings are uniform noise, the model cannot tell <span class="math inline">\(\psi_r = 16\)</span> from <span class="math inline">\(\psi_r = 32\)</span> from <span class="math inline">\(\psi_r = 1{,}000\)</span>: all of them produce the same near-uniform distribution, so all of them fit equally well. The profile log-likelihood does not peak — it <strong>rises and then flattens into a plateau, never turning over into a peak.</strong> There is no finite MLE. Panel B of <a href="#fig-psi-identified" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> shows exactly this. These notes implement Equation (6) from scratch in R — not a re-run of <code>immer</code>, but an independent coding of the dissertation’s own model, done as a diligence check — and plot the profile log-likelihood for two raters. A consistent rater (true <span class="math inline">\(\psi \approx 0.5\)</span>) shows a sharp peak. A noise rater shows a flat plateau with no peak anywhere out to ψ = 60. The shaded band marks the reported range <span class="math inline">\(\psi \in [16, 32]\)</span> — and it sits squarely on the flat part of the noise rater’s curve.</p>
+<div class="cell" data-layout-align="center">
+<details class="code-fold">
+<summary>Show the R code that builds this figure (implements Eq. 6 from scratch)</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/common.R"</span>)                       <span class="co"># the dissertation's own equations, in R</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2); <span class="fu">library</span>(patchwork)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- one consistent rater and one pure-noise ("misfit") rater ----------------</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>N     <span class="ot">&lt;-</span> <span class="dv">500</span>L</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>xi    <span class="ot">&lt;-</span> <span class="fu">max.col</span>(<span class="fu">gpcm_probs</span>(theta)) <span class="sc">-</span> <span class="dv">1</span>L                 <span class="co"># ideal rating 0..4</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>X_consistent <span class="ot">&lt;-</span> <span class="fu">simulate_rating</span>(<span class="fu">sdm_probs</span>(xi, <span class="at">phi =</span> <span class="dv">0</span>, <span class="at">psi =</span> <span class="fl">0.5</span>))  <span class="co"># true ψ = 0.5</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>X_misfit     <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, N, <span class="at">replace =</span> <span class="cn">TRUE</span>)                       <span class="co"># uniform noise</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- profile log-likelihood of ψ for each rater ------------------------------</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>psi_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.2</span>, <span class="dv">60</span>, <span class="at">length.out =</span> <span class="dv">240</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>ll_cons  <span class="ot">&lt;-</span> <span class="fu">sapply</span>(psi_grid, <span class="cf">function</span>(p) <span class="fu">sdm_loglik</span>(X_consistent, xi, <span class="dv">0</span>, p))</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>ll_mis   <span class="ot">&lt;-</span> <span class="fu">sapply</span>(psi_grid, <span class="cf">function</span>(p) <span class="fu">sdm_loglik</span>(X_misfit,     xi, <span class="dv">0</span>, p))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Panel A: the SDM flattens to uniform as ψ grows -------------------------</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>psi_vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">20</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>panA <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(psi_vals, <span class="cf">function</span>(pv) <span class="fu">data.frame</span>(</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">k =</span> CATS, <span class="at">prob =</span> <span class="fu">as.numeric</span>(<span class="fu">sdm_probs</span>(<span class="dv">2</span>, <span class="dv">0</span>, pv)),</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">psi =</span> <span class="fu">factor</span>(<span class="fu">sprintf</span>(<span class="st">"ψ = %g"</span>, pv), <span class="at">levels =</span> <span class="fu">sprintf</span>(<span class="st">"ψ = %g"</span>, psi_vals)))))</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>ramp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#1A5276"</span>, <span class="st">"#2471A3"</span>, <span class="st">"#85C1E9"</span>, <span class="st">"#B9770E"</span>, <span class="st">"#C0392B"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ramp) <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"ψ = %g"</span>, psi_vals)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>pA <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(panA, <span class="fu">aes</span>(k, prob, <span class="at">colour =</span> psi, <span class="at">group =</span> psi)) <span class="sc">+</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey55"</span>, <span class="at">linewidth =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">4</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span> <span class="sc">+</span> .<span class="dv">03</span>, <span class="at">label =</span> <span class="st">"uniform 1/5"</span>,</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"grey45"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">hjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.05</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.1</span>) <span class="sc">+</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> ramp, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>, <span class="st">"2</span><span class="sc">\n</span><span class="st">(= ideal ξ)"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>)) <span class="sc">+</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">25</span>),</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"A  ·  As ψ grows, every score becomes equally likely"</span>,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Observed rating  k"</span>, <span class="at">y =</span> <span class="st">"P(X = k | ξ = 2)"</span>) <span class="sc">+</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Panel B: profile log-likelihood on a log-ψ axis ------------------------</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>panB <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">psi =</span> psi_grid, <span class="at">ll =</span> ll_cons <span class="sc">-</span> <span class="fu">max</span>(ll_cons), <span class="at">rater =</span> <span class="st">"A real rater (true ψ = 0.5)"</span>),</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">psi =</span> psi_grid, <span class="at">ll =</span> ll_mis  <span class="sc">-</span> <span class="fu">max</span>(ll_mis),  <span class="at">rater =</span> <span class="st">"A noise rater (the 'misfit')"</span>))</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>panB<span class="sc">$</span>rater <span class="ot">&lt;-</span> <span class="fu">factor</span>(panB<span class="sc">$</span>rater, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"A real rater (true ψ = 0.5)"</span>, <span class="st">"A noise rater (the 'misfit')"</span>))</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>pB <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(panB, <span class="fu">aes</span>(psi, ll, <span class="at">colour =</span> rater)) <span class="sc">+</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="dv">16</span>, <span class="at">xmax =</span> <span class="dv">32</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> pal_companion[[<span class="st">"warn"</span>]], <span class="at">alpha =</span> .<span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fu">sqrt</span>(<span class="dv">16</span> <span class="sc">*</span> <span class="dv">32</span>), <span class="at">y =</span> <span class="sc">-</span><span class="fl">1.2</span>, <span class="at">label =</span> <span class="st">"dissertation's</span><span class="sc">\n</span><span class="st">reported ψ (16–32)"</span>,</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> pal_companion[[<span class="st">"warn"</span>]], <span class="at">size =</span> <span class="fl">2.9</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.15</span>) <span class="sc">+</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">6.5</span>, <span class="at">y =</span> <span class="sc">-</span><span class="fl">7.5</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"the noise rater's curve flattens</span><span class="sc">\n</span><span class="st">to a plateau — no best ψ exists"</span>,</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> pal_companion[[<span class="st">"misfit"</span>]], <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"point"</span>, <span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">colour =</span> pal_companion[[<span class="st">"none"</span>]], <span class="at">size =</span> <span class="fl">2.4</span>) <span class="sc">+</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"A real rater (true ψ = 0.5)"</span> <span class="ot">=</span> pal_companion[[<span class="st">"none"</span>]],</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"A noise rater (the 'misfit')"</span> <span class="ot">=</span> pal_companion[[<span class="st">"misfit"</span>]]), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">16</span>, <span class="dv">32</span>, <span class="dv">60</span>)) <span class="sc">+</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">15</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"B  ·  A real rater's ψ has a clear best value; a noise rater's does not"</span>,</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"ψ  (log scale)"</span>, <span class="at">y =</span> <span class="st">"profile log-likelihood</span><span class="sc">\n</span><span class="st">(each curve − its own max)"</span>) <span class="sc">+</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>, <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>pA <span class="sc">/</span> pB</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-psi-identified" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-psi-identified-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-psi-not-identified_files/figure-html/fig-psi-identified-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-psi-identified-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: A real rater’s ψ has a clear best value; a noise rater’s does not. <strong>(A)</strong> As ψ grows, the signal-detection model flattens to a uniform distribution (every category at 1/5) — so a rater’s ψ can only be pinned down if their ratings actually carry signal. <strong>(B)</strong> On a log-ψ axis, a consistent rater’s profile log-likelihood peaks sharply near its true ψ ≈ 0.5, but a pure-noise (“misfit”) rater’s rises and then flattens to a plateau: there is no finite maximum. The dissertation’s reported ψ ≈ 16–32 (shaded) lies on that flat plateau.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>So <span class="math inline">\(\psi = 16\)</span> and <span class="math inline">\(\psi = 32\)</span> are not two different variability estimates; they are two places the sampler happened to pause while wandering across a flat ridge. The number carries essentially no information about the rater. One might hope the prior would rescue things — but the prior is <span class="math inline">\(\psi_r \sim N(0.4, 10^2)\)</span> (p.&nbsp;61), with a standard deviation of <strong>10</strong>. This prior is weak, and over <em>small</em> <span class="math inline">\(\psi\)</span> it is indeed fairly flat — at <span class="math inline">\(\psi = 5\)</span> its density is still about 90% of the peak at <span class="math inline">\(\psi = 0.4\)</span>, and at <span class="math inline">\(\psi = 10\)</span> about 63%. But over the <em>reported</em> range it is not flat at all: relative to that peak, the density falls to roughly <strong>30%</strong> at <span class="math inline">\(\psi = 16\)</span> and to about <strong>0.7%</strong> at <span class="math inline">\(\psi = 32\)</span>, all but vanishing by <span class="math inline">\(\psi = 60\)</span>. So the prior is not propping these values up — if anything it leans the other way, pulling toward small <span class="math inline">\(\psi\)</span> and penalizing exactly the large values that were reported. That makes a posterior still settling at <span class="math inline">\(\psi = 16\)</span>–<span class="math inline">\(32\)</span> <em>more</em> telling, not less: those numbers survive <em>against</em> the prior’s gentle downward pull, which means it is the unconstrained likelihood ridge — not any help from the prior — that places them out there. (It is also worth noting that a <em>normal</em> prior on a quantity that must be positive is itself a little awkward.) And a plain sanity check seals it: <span class="math inline">\(\psi = 30\)</span> sets the Gaussian <em>spread parameter</em> in Equation (6) to 30 — seven times the width of the whole 0–4 scale — so the model is essentially uniform whatever the ideal rating. At that point ψ has stopped measuring “consistency” at all: 16 and 30 are not two amounts of variability, just two points on the same flat likelihood ridge.</p>
+<p>This matters downstream. Tables 16–17 average ψ across raters and feed it into an ANOVA. Averaging a non-identified quantity yields a mean that inherits the same indeterminacy — so the ANOVA’s “sensitivity” result for ψ rests on numbers that do not mean what the label says.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>The strongest counterargument
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The large ψ for those two raters is not a malfunction — it is the HRM working <em>exactly as intended</em>. A rater whose ratings carry no signal genuinely <em>does</em> have unbounded variability, so a ψ that runs out to 16, 32, and beyond is the model faithfully reporting that fact; flagging such raters as extreme is precisely what a sensitivity analysis is <em>for</em>. The dissertation did not paper over the instability — it noted the related <span class="math inline">\(a_i\)</span> convergence caveat.</p>
+<p>And yet — that is the right intuition pointed at the wrong number, and the flag is the part worth keeping. The narrow thing the revision asks is bookkeeping: a quantity the profile likelihood cannot bound (Panel B of <a href="#fig-psi-identified" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>) should be <em>reported as flagged and non-estimable</em>, not entered as a point estimate carrying an SD of 13.31 and then <em>averaged into an ANOVA</em> as though it were measured. “The HRM detected that this rater’s variability is unbounded” and “this rater’s ψ is 16.65” are different claims; only the first is one the data support. Reporting ψ as non-identified is not a retreat from the result — it <em>is</em> the result, in the one form a reviewer cannot dispute.</p>
+</div>
+</div>
+</section>
+<section id="what-would-fix-it" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="what-would-fix-it"><span class="header-section-number">1.3</span> What would fix it</h2>
+<p>The good news: none of this requires new data or abandoning the HRM. It asks for a more careful accounting of what the model can and cannot say about those two raters — and, reframed, the misfit finding actually becomes <em>more</em> interesting.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Fix-it
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Treat the misfit ψ as non-estimable.</strong> For a rater whose ratings are consistent with uniform noise (Chapter 3 gives a formal criterion), report ψ as non-identified rather than as a point estimate with an SD. This is a substantive finding, not a weakness: the HRM has detected that the rater’s variability is <em>unbounded</em> given the data.</li>
+<li><strong>Reparameterize on the log scale with a regularizing prior.</strong> Work with <span class="math inline">\(\log\psi_r\)</span> — it keeps ψ positive and tames the tail. Something like <span class="math inline">\(\log\psi_r \sim N(0, 1)\)</span> (so ψ is a priori roughly 0.1–10) regularizes meaningfully without being dogmatic, and barely moves the well-identified raters.</li>
+<li><strong>Report diagnostics that separate two questions: is the sampler exploring well (<em>mixing</em>), and can the data pin ψ down at all (<em>identification</em>)?</strong> They are not the same, and they are easy to conflate. For <em>mixing</em>, give each rater’s ψ an effective sample size (ESS) and Monte-Carlo standard error (MCSE) — but read them for what they measure: ESS is roughly the retained draws over the autocorrelation time (<span class="math inline">\(\text{ESS} \approx N/\tau\)</span>), so it simply <em>grows</em> as the chain runs longer and says nothing, by itself, about whether ψ is identified. For <em>identification</em>, lean on the checks this chapter already uses: the <strong>profile log-likelihood</strong> (a clean peak means the data fix a best ψ; a flat ridge with no finite maximum — Panel B of <a href="#fig-psi-identified" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> — means they cannot), whether the <strong>posterior is essentially just the prior reshaped</strong>, posterior mass that <strong>drifts toward ever-larger ψ instead of concentrating</strong>, and a <strong>prior-sensitivity refit</strong> (a tighter and a looser prior — a posterior that moves when only the prior changes is prior-driven, not data-driven). The two genuinely come apart: a sampler can glide along the flat ψ ridge with perfectly healthy ESS and still be unable to resolve ψ — which is exactly why the likelihood-side checks are the ones that settle it.</li>
+<li><strong>Add a posterior-predictive check for the misfit raters — and read its <em>non</em>-failure as the signal.</strong> Draw replicated rating sets from the fitted HRM posterior for those two raters and overlay their category frequencies on the observed ratings (a bar-style PPC, or a Bayesian <em>p</em>-value on the category counts). The point is the reverse of a usual check: the model will <em>pass</em>, and pass for <em>every</em> ψ across the reported 16–32 range and well beyond, because once ψ is large the SDM reproduces the near-uniform observed pattern no matter its exact value. A check the data cannot fail — flat across a wide ψ band — is the in-sample, posterior-side counterpart of the flat profile likelihood in Panel B of <a href="#fig-psi-identified" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>: it confirms the ratings simply do not distinguish one large ψ from another.</li>
+<li><strong>Report a bounded, estimable quantity for the misfit raters in place of an averaged ψ.</strong> The mean of a non-identified ψ is not worth tabulating; a <em>classification</em> result is. Give the rate at which the HRM correctly flags the misfit raters as misfitting — a detection/flag rate with its uncertainty (a Wilson or posterior interval over replications) — and/or, per rater, the posterior probability that ψ exceeds a stated “noise” threshold, <span class="math inline">\(\Pr(\psi_r &gt; \psi^*)\)</span> for a pre-specified cut (Chapter 3’s criterion gives a principled one). These are estimable precisely where the mean of ψ is not: <span class="math inline">\(\Pr(\psi_r &gt; \psi^*)\)</span> stays near 1 whether the true value is 16 or 1,000, so it is stable along the very ridge that makes the point estimate meaningless. This is the concrete, reportable form of “the HRM <em>flags</em> these raters, it does not <em>measure</em> them.”</li>
+<li><strong>Limit ψ claims to identified conditions.</strong> Restrict the ANOVA and any “sensitivity” language to raters whose ψ has a finite peak; discuss the misfit raters as cases the HRM <em>flags</em>, not cases it <em>measures</em>.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="what-a-reviewer-will-ask" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="what-a-reviewer-will-ask"><span class="header-section-number">1.4</span> What a reviewer will ask</h2>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>What a reviewer will ask
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>“In what sense is a reported ψ of 16–32 an <em>estimate</em>, given that the profile likelihood for these raters has no finite maximum? And what justifies averaging it across raters and entering it into an ANOVA?”</p>
+</div>
+</div>
+<p>This question is precise, and it is answerable — but only after the revisions above. Done well, the fix turns a vulnerability into a demonstration of methodological care: the diagnostics are run, ψ is found to be non-identified for those two raters, and it is reported accordingly. That is what careful Bayesian practice looks like, and it makes the misfit result <em>stronger</em>, not weaker — the HRM correctly flags raters whose variability the data cannot bound.</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./00-executive-summary.html" class="pagination-link" aria-label="Executive summary">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Executive summary</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02-location-collapse.html" class="pagination-link" aria-label="The vanishing severe rater: a location estimate that collapses with sample size">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The vanishing severe rater: a location estimate that collapses with sample size</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "The HRM's ψ cannot be estimated for misfit raters"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>The Hierarchical Rater Model (HRM) analysis is one of the most technically</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>ambitious parts of the dissertation, and the core idea behind it is sound. This</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>chapter examines a single parameter, the rater-variability parameter ψ,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>because a subtle estimation problem is hiding in the two "misfit" raters. A journal</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>reviewer is likely to find it, and the question is better answered before it is asked.</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Where this is in the dissertation.** The signal-detection model is Equation (6),</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; p. 53; the misfit-rater ψ values appear in Tables 16–17, p. 65; the prior on ψ is on</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; p. 61.</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">## What the dissertation does</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>The HRM works in two stages. Stage 1 turns a student's latent ability into an *ideal</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>rating* ξ — the integer category (0–4) the response really deserves. Stage 2 is a</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>signal-detection model (SDM): given that ideal rating, it describes the category a</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>particular rater actually assigns. Equation (6), p. 53, states it as</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>P(X = k \mid \xi) \;\propto\; \exp<span class="sc">\!</span>\left(-\frac{\bigl(k - (\xi + \phi_r)\bigr)^2}{2\,\psi_r^2}\right),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>a discretized Gaussian centered on the rater's ideal-plus-bias score $\xi + \phi_r$,</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>with spread $\psi_r$. A small $\psi_r$ means the rater's ratings cluster tightly around</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>the ideal; the rater is consistent. As the dissertation puts it, "psi ($\psi_r$) represents a</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>rater's variability, which indicates how consistent the rater is … smaller values are</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>interpreted as higher-quality ratings" (p. 53) — "the rater variability parameter</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>(psi)" (p. 61). That is an entirely sensible reading, *for raters who are actually</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>reading the work in front of them.*</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>The dissertation then flags two raters whose ψ is far larger than everyone else's — about **16.65**</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>and **31.85** (SD 13.31) in Tables 16–17 (p. 65) — and reads these large values as the</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>HRM being sensitive to rater misfit. The intuition is sound. The trouble is what the</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>likelihood surface actually looks like for a rater whose ratings carry no signal.</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Why this threatens the conclusion</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>It helps to sit with the intuition before the formalism. Imagine a rater who is not</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>reading the essays at all — someone assigning scores by rolling a five-sided die.</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>Their ratings are pure noise, equally likely to land on any category, with no relation</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>to ξ. Now ask what Equation (6) does for that rater. As $\psi_r$ grows, the Gaussian in</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>the exponent flattens; by $\psi_r \approx 5$ the five category probabilities are</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>already nearly equal, and as $\psi_r$ keeps growing the distribution becomes **exactly</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>uniform** — every category at 0.20, for *any* ideal rating. In the model's own</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>language, a rater who chooses at random is a rater with $\psi_r \to \infty$. Panel A of</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>@fig-psi-identified shows this collapse.</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>That is the heart of the problem. *Identification* means the data can, in principle,</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>pin down a parameter — that there is a unique value that fits best. The tool for</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>finding it is the **profile log-likelihood**: the log-likelihood as a function of</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>$\psi_r$, maximized over everything else. For a well-behaved parameter this curve rises</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>to a clear **peak** at the best-fitting value (the maximum-likelihood estimate, MLE),</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>then falls away. (Picture a topographic map: we are hunting for the single hilltop — a</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>well-identified parameter has one; a non-identified one is an endless flat ridge with no</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>summit.) For a genuine rater, a stack of essays gives the model real leverage, and the</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>curve peaks cleanly.</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>For a misfit rater whose ratings are uniform noise, the model cannot tell</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>$\psi_r = 16$ from $\psi_r = 32$ from $\psi_r = 1{,}000$: all of them produce the same</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>near-uniform distribution, so all of them fit equally well. The profile log-likelihood</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>does not peak — it **rises and then flattens into a plateau, never turning over into a peak.** There is no</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>finite MLE. Panel B of @fig-psi-identified shows exactly this. These notes implement</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>Equation (6) from scratch in R — not a re-run of <span class="in">`immer`</span>, but an independent</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>coding of the dissertation's own model, done as a diligence check — and plot the profile</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>log-likelihood for two raters. A consistent rater (true $\psi \approx 0.5$) shows a</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>sharp peak. A noise rater shows a flat plateau with no peak anywhere out to ψ = 60. The</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>shaded band marks the reported range $\psi \in <span class="co">[</span><span class="ot">16, 32</span><span class="co">]</span>$ — and it sits squarely on the</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>flat part of the noise rater's curve.</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-psi-identified</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "A real rater's ψ has a clear best value; a noise rater's does not. **(A)** As ψ grows, the signal-detection model flattens to a uniform distribution (every category at 1/5) — so a rater's ψ can only be pinned down if their ratings actually carry signal. **(B)** On a log-ψ axis, a consistent rater's profile log-likelihood peaks sharply near its true ψ ≈ 0.5, but a pure-noise (\"misfit\") rater's rises and then flattens to a plateau: there is no finite maximum. The dissertation's reported ψ ≈ 16–32 (shaded) lies on that flat plateau."</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 8.2</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 6.6</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Show the R code that builds this figure (implements Eq. 6 from scratch)"</span></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"R/common.R"</span>)                       <span class="co"># the dissertation's own equations, in R</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2); <span class="fu">library</span>(patchwork)</span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- one consistent rater and one pure-noise ("misfit") rater ----------------</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">11</span>)</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>N     <span class="ot">&lt;-</span> <span class="dv">500</span>L</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(N)</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>xi    <span class="ot">&lt;-</span> <span class="fu">max.col</span>(<span class="fu">gpcm_probs</span>(theta)) <span class="sc">-</span> <span class="dv">1</span>L                 <span class="co"># ideal rating 0..4</span></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>X_consistent <span class="ot">&lt;-</span> <span class="fu">simulate_rating</span>(<span class="fu">sdm_probs</span>(xi, <span class="at">phi =</span> <span class="dv">0</span>, <span class="at">psi =</span> <span class="fl">0.5</span>))  <span class="co"># true ψ = 0.5</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>X_misfit     <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, N, <span class="at">replace =</span> <span class="cn">TRUE</span>)                       <span class="co"># uniform noise</span></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- profile log-likelihood of ψ for each rater ------------------------------</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>psi_grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.2</span>, <span class="dv">60</span>, <span class="at">length.out =</span> <span class="dv">240</span>)</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>ll_cons  <span class="ot">&lt;-</span> <span class="fu">sapply</span>(psi_grid, <span class="cf">function</span>(p) <span class="fu">sdm_loglik</span>(X_consistent, xi, <span class="dv">0</span>, p))</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>ll_mis   <span class="ot">&lt;-</span> <span class="fu">sapply</span>(psi_grid, <span class="cf">function</span>(p) <span class="fu">sdm_loglik</span>(X_misfit,     xi, <span class="dv">0</span>, p))</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Panel A: the SDM flattens to uniform as ψ grows -------------------------</span></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>psi_vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">20</span>)</span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>panA <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, <span class="fu">lapply</span>(psi_vals, <span class="cf">function</span>(pv) <span class="fu">data.frame</span>(</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>  <span class="at">k =</span> CATS, <span class="at">prob =</span> <span class="fu">as.numeric</span>(<span class="fu">sdm_probs</span>(<span class="dv">2</span>, <span class="dv">0</span>, pv)),</span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>  <span class="at">psi =</span> <span class="fu">factor</span>(<span class="fu">sprintf</span>(<span class="st">"ψ = %g"</span>, pv), <span class="at">levels =</span> <span class="fu">sprintf</span>(<span class="st">"ψ = %g"</span>, psi_vals)))))</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>ramp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"#1A5276"</span>, <span class="st">"#2471A3"</span>, <span class="st">"#85C1E9"</span>, <span class="st">"#B9770E"</span>, <span class="st">"#C0392B"</span>)</span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ramp) <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"ψ = %g"</span>, psi_vals)</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>pA <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(panA, <span class="fu">aes</span>(k, prob, <span class="at">colour =</span> psi, <span class="at">group =</span> psi)) <span class="sc">+</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">colour =</span> <span class="st">"grey55"</span>, <span class="at">linewidth =</span> .<span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">4</span>, <span class="at">y =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">5</span> <span class="sc">+</span> .<span class="dv">03</span>, <span class="at">label =</span> <span class="st">"uniform 1/5"</span>,</span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> <span class="st">"grey45"</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">hjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.05</span>) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">2.1</span>) <span class="sc">+</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> ramp, <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"0"</span>, <span class="st">"1"</span>, <span class="st">"2</span><span class="sc">\n</span><span class="st">(= ideal ξ)"</span>, <span class="st">"3"</span>, <span class="st">"4"</span>)) <span class="sc">+</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">25</span>),</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>(<span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"A  ·  As ψ grows, every score becomes equally likely"</span>,</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Observed rating  k"</span>, <span class="at">y =</span> <span class="st">"P(X = k | ξ = 2)"</span>) <span class="sc">+</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>)</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Panel B: profile log-likelihood on a log-ψ axis ------------------------</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>panB <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">psi =</span> psi_grid, <span class="at">ll =</span> ll_cons <span class="sc">-</span> <span class="fu">max</span>(ll_cons), <span class="at">rater =</span> <span class="st">"A real rater (true ψ = 0.5)"</span>),</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">psi =</span> psi_grid, <span class="at">ll =</span> ll_mis  <span class="sc">-</span> <span class="fu">max</span>(ll_mis),  <span class="at">rater =</span> <span class="st">"A noise rater (the 'misfit')"</span>))</span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>panB<span class="sc">$</span>rater <span class="ot">&lt;-</span> <span class="fu">factor</span>(panB<span class="sc">$</span>rater, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"A real rater (true ψ = 0.5)"</span>, <span class="st">"A noise rater (the 'misfit')"</span>))</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a>pB <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(panB, <span class="fu">aes</span>(psi, ll, <span class="at">colour =</span> rater)) <span class="sc">+</span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"rect"</span>, <span class="at">xmin =</span> <span class="dv">16</span>, <span class="at">xmax =</span> <span class="dv">32</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="cn">Inf</span>, <span class="at">ymax =</span> <span class="cn">Inf</span>,</span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> pal_companion[[<span class="st">"warn"</span>]], <span class="at">alpha =</span> .<span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fu">sqrt</span>(<span class="dv">16</span> <span class="sc">*</span> <span class="dv">32</span>), <span class="at">y =</span> <span class="sc">-</span><span class="fl">1.2</span>, <span class="at">label =</span> <span class="st">"dissertation's</span><span class="sc">\n</span><span class="st">reported ψ (16–32)"</span>,</span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> pal_companion[[<span class="st">"warn"</span>]], <span class="at">size =</span> <span class="fl">2.9</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="fl">1.15</span>) <span class="sc">+</span></span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">6.5</span>, <span class="at">y =</span> <span class="sc">-</span><span class="fl">7.5</span>, <span class="at">hjust =</span> <span class="dv">0</span>,</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a>           <span class="at">label =</span> <span class="st">"the noise rater's curve flattens</span><span class="sc">\n</span><span class="st">to a plateau — no best ψ exists"</span>,</span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>           <span class="at">colour =</span> pal_companion[[<span class="st">"misfit"</span>]], <span class="at">size =</span> <span class="dv">3</span>, <span class="at">fontface =</span> <span class="st">"italic"</span>, <span class="at">lineheight =</span> .<span class="dv">9</span>) <span class="sc">+</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"point"</span>, <span class="at">x =</span> <span class="fl">0.5</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">colour =</span> pal_companion[[<span class="st">"none"</span>]], <span class="at">size =</span> <span class="fl">2.4</span>) <span class="sc">+</span></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"A real rater (true ψ = 0.5)"</span> <span class="ot">=</span> pal_companion[[<span class="st">"none"</span>]],</span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">"A noise rater (the 'misfit')"</span> <span class="ot">=</span> pal_companion[[<span class="st">"misfit"</span>]]), <span class="at">name =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">16</span>, <span class="dv">32</span>, <span class="dv">60</span>)) <span class="sc">+</span></span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">15</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"B  ·  A real rater's ψ has a clear best value; a noise rater's does not"</span>,</span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"ψ  (log scale)"</span>, <span class="at">y =</span> <span class="st">"profile log-likelihood</span><span class="sc">\n</span><span class="st">(each curve − its own max)"</span>) <span class="sc">+</span></span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_companion</span>(<span class="dv">11</span>) <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"right"</span>, <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>pA <span class="sc">/</span> pB</span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a>So $\psi = 16$ and $\psi = 32$ are not two different variability estimates; they are two</span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a>places the sampler happened to pause while wandering across a flat ridge. The number</span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>carries essentially no information about the rater. One might hope the prior would</span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a>rescue things — but the prior is $\psi_r \sim N(0.4, 10^2)$ (p. 61), with a standard</span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>deviation of **10**. This prior is weak, and over *small* $\psi$ it is indeed fairly flat — at $\psi = 5$ its</span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a>density is still about 90% of the peak at $\psi = 0.4$, and at $\psi = 10$ about 63%. But</span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a>over the *reported* range it is not flat at all: relative to that peak, the density falls</span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a>to roughly **30%** at $\psi = 16$ and to about **0.7%** at $\psi = 32$, all but vanishing</span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a>by $\psi = 60$. So the prior is not propping these values up — if anything it leans the</span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a>other way, pulling toward small $\psi$ and penalizing exactly the large values that were</span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a>reported. That makes a posterior still settling at $\psi = 16$–$32$ *more* telling, not</span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a>less: those numbers survive *against* the prior's gentle downward pull, which means it is</span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a>the unconstrained likelihood ridge — not any help from the prior — that places them out</span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>there. (It is also worth noting that a</span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a>*normal* prior on a quantity that must be positive is itself a little awkward.) And a</span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a>plain sanity check seals it: $\psi = 30$ sets the Gaussian *spread parameter* in</span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>Equation (6) to 30 — seven times the width of the whole 0–4 scale — so the model is</span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a>essentially uniform whatever the ideal rating. At that point ψ has stopped measuring</span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>"consistency" at all: 16 and 30 are not two amounts of variability, just two points on</span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a>the same flat likelihood ridge.</span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a>This matters downstream. Tables 16–17 average ψ across raters and feed it into an</span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>ANOVA. Averaging a non-identified quantity yields a mean that inherits the same</span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a>indeterminacy — so the ANOVA's "sensitivity" result for ψ rests on numbers that do not</span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>mean what the label says.</span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## The strongest counterargument</span></span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a>The large ψ for those two raters is not a malfunction — it is the HRM</span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a>working *exactly as intended*. A rater whose ratings carry no signal genuinely *does* have</span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a>unbounded variability, so a ψ that runs out to 16, 32, and beyond is the model faithfully</span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a>reporting that fact; flagging such raters as extreme is precisely what a sensitivity</span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a>analysis is *for*. The dissertation did not paper over the instability — it noted the related $a_i$</span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a>convergence caveat.</span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a>And yet — that is the right intuition pointed at the wrong number, and the flag is the part</span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a>worth keeping. The narrow thing the revision asks is bookkeeping: a quantity the profile</span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a>likelihood cannot bound (Panel B of @fig-psi-identified) should be *reported as flagged and</span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a>non-estimable*, not entered as a point estimate carrying an SD of 13.31 and then *averaged</span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a>into an ANOVA* as though it were measured. "The HRM detected that this rater's variability is</span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a>unbounded" and "this rater's ψ is 16.65" are different claims; only the first is one the data</span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a>support. Reporting ψ as non-identified is not a retreat from the result — it *is* the</span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a>result, in the one form a reviewer cannot dispute.</span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-191"><a href="#cb2-191" aria-hidden="true" tabindex="-1"></a><span class="fu">## What would fix it</span></span>
+<span id="cb2-192"><a href="#cb2-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-193"><a href="#cb2-193" aria-hidden="true" tabindex="-1"></a>The good news: none of this requires new data or abandoning the HRM. It asks for a more</span>
+<span id="cb2-194"><a href="#cb2-194" aria-hidden="true" tabindex="-1"></a>careful accounting of what the model can and cannot say about those two raters — and,</span>
+<span id="cb2-195"><a href="#cb2-195" aria-hidden="true" tabindex="-1"></a>reframed, the misfit finding actually becomes *more* interesting.</span>
+<span id="cb2-196"><a href="#cb2-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-197"><a href="#cb2-197" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb2-198"><a href="#cb2-198" aria-hidden="true" tabindex="-1"></a><span class="fu">## Fix-it</span></span>
+<span id="cb2-199"><a href="#cb2-199" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Treat the misfit ψ as non-estimable.** For a rater whose ratings are consistent</span>
+<span id="cb2-200"><a href="#cb2-200" aria-hidden="true" tabindex="-1"></a>  with uniform noise (Chapter 3 gives a formal criterion), report ψ as non-identified</span>
+<span id="cb2-201"><a href="#cb2-201" aria-hidden="true" tabindex="-1"></a>  rather than as a point estimate with an SD. This is a substantive finding, not a</span>
+<span id="cb2-202"><a href="#cb2-202" aria-hidden="true" tabindex="-1"></a>  weakness: the HRM has detected that the rater's variability is *unbounded* given the</span>
+<span id="cb2-203"><a href="#cb2-203" aria-hidden="true" tabindex="-1"></a>  data.</span>
+<span id="cb2-204"><a href="#cb2-204" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Reparameterize on the log scale with a regularizing prior.** Work with</span>
+<span id="cb2-205"><a href="#cb2-205" aria-hidden="true" tabindex="-1"></a>  $\log\psi_r$ — it keeps ψ positive and tames the tail. Something like</span>
+<span id="cb2-206"><a href="#cb2-206" aria-hidden="true" tabindex="-1"></a>  $\log\psi_r \sim N(0, 1)$ (so ψ is a priori roughly 0.1–10) regularizes meaningfully</span>
+<span id="cb2-207"><a href="#cb2-207" aria-hidden="true" tabindex="-1"></a>  without being dogmatic, and barely moves the well-identified raters.</span>
+<span id="cb2-208"><a href="#cb2-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Report diagnostics that separate two questions: is the sampler exploring well</span>
+<span id="cb2-209"><a href="#cb2-209" aria-hidden="true" tabindex="-1"></a>  (*mixing*), and can the data pin ψ down at all (*identification*)?** They are not the</span>
+<span id="cb2-210"><a href="#cb2-210" aria-hidden="true" tabindex="-1"></a>  same, and they are easy to conflate. For *mixing*, give each rater's ψ an effective</span>
+<span id="cb2-211"><a href="#cb2-211" aria-hidden="true" tabindex="-1"></a>  sample size (ESS) and Monte-Carlo standard error (MCSE) — but read them for what they</span>
+<span id="cb2-212"><a href="#cb2-212" aria-hidden="true" tabindex="-1"></a>  measure: ESS is roughly the retained draws over the autocorrelation time</span>
+<span id="cb2-213"><a href="#cb2-213" aria-hidden="true" tabindex="-1"></a>  ($\text{ESS} \approx N/\tau$), so it simply *grows* as the chain runs longer and says</span>
+<span id="cb2-214"><a href="#cb2-214" aria-hidden="true" tabindex="-1"></a>  nothing, by itself, about whether ψ is identified. For *identification*, lean on the</span>
+<span id="cb2-215"><a href="#cb2-215" aria-hidden="true" tabindex="-1"></a>  checks this chapter already uses: the **profile log-likelihood** (a clean peak means the</span>
+<span id="cb2-216"><a href="#cb2-216" aria-hidden="true" tabindex="-1"></a>  data fix a best ψ; a flat ridge with no finite maximum — Panel B of @fig-psi-identified</span>
+<span id="cb2-217"><a href="#cb2-217" aria-hidden="true" tabindex="-1"></a>  — means they cannot), whether the **posterior is essentially just the prior reshaped**,</span>
+<span id="cb2-218"><a href="#cb2-218" aria-hidden="true" tabindex="-1"></a>  posterior mass that **drifts toward ever-larger ψ instead of concentrating**, and a</span>
+<span id="cb2-219"><a href="#cb2-219" aria-hidden="true" tabindex="-1"></a>  **prior-sensitivity refit** (a tighter and a looser prior — a posterior that moves when</span>
+<span id="cb2-220"><a href="#cb2-220" aria-hidden="true" tabindex="-1"></a>  only the prior changes is prior-driven, not data-driven). The two genuinely come apart:</span>
+<span id="cb2-221"><a href="#cb2-221" aria-hidden="true" tabindex="-1"></a>  a sampler can glide along the flat ψ ridge with perfectly healthy ESS and still be</span>
+<span id="cb2-222"><a href="#cb2-222" aria-hidden="true" tabindex="-1"></a>  unable to resolve ψ — which is exactly why the likelihood-side checks are the ones that</span>
+<span id="cb2-223"><a href="#cb2-223" aria-hidden="true" tabindex="-1"></a>  settle it.</span>
+<span id="cb2-224"><a href="#cb2-224" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Add a posterior-predictive check for the misfit raters — and read its *non*-failure as</span>
+<span id="cb2-225"><a href="#cb2-225" aria-hidden="true" tabindex="-1"></a>  the signal.** Draw replicated rating sets from the fitted HRM posterior for those two</span>
+<span id="cb2-226"><a href="#cb2-226" aria-hidden="true" tabindex="-1"></a>  raters and overlay their category frequencies on the observed ratings (a bar-style PPC,</span>
+<span id="cb2-227"><a href="#cb2-227" aria-hidden="true" tabindex="-1"></a>  or a Bayesian *p*-value on the category counts). The point is the reverse of a usual</span>
+<span id="cb2-228"><a href="#cb2-228" aria-hidden="true" tabindex="-1"></a>  check: the model will *pass*, and pass for *every* ψ across the reported 16–32 range and</span>
+<span id="cb2-229"><a href="#cb2-229" aria-hidden="true" tabindex="-1"></a>  well beyond, because once ψ is large the SDM reproduces the near-uniform observed pattern</span>
+<span id="cb2-230"><a href="#cb2-230" aria-hidden="true" tabindex="-1"></a>  no matter its exact value. A check the data cannot fail — flat across a wide ψ band — is</span>
+<span id="cb2-231"><a href="#cb2-231" aria-hidden="true" tabindex="-1"></a>  the in-sample, posterior-side counterpart of the flat profile likelihood in Panel B of</span>
+<span id="cb2-232"><a href="#cb2-232" aria-hidden="true" tabindex="-1"></a>  @fig-psi-identified: it confirms the ratings simply do not distinguish one large ψ from</span>
+<span id="cb2-233"><a href="#cb2-233" aria-hidden="true" tabindex="-1"></a>  another.</span>
+<span id="cb2-234"><a href="#cb2-234" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Report a bounded, estimable quantity for the misfit raters in place of an averaged ψ.**</span>
+<span id="cb2-235"><a href="#cb2-235" aria-hidden="true" tabindex="-1"></a>  The mean of a non-identified ψ is not worth tabulating; a *classification* result is.</span>
+<span id="cb2-236"><a href="#cb2-236" aria-hidden="true" tabindex="-1"></a>  Give the rate at which the HRM correctly flags the misfit raters as misfitting — a</span>
+<span id="cb2-237"><a href="#cb2-237" aria-hidden="true" tabindex="-1"></a>  detection/flag rate with its uncertainty (a Wilson or posterior interval over</span>
+<span id="cb2-238"><a href="#cb2-238" aria-hidden="true" tabindex="-1"></a>  replications) — and/or, per rater, the posterior probability that ψ exceeds a stated</span>
+<span id="cb2-239"><a href="#cb2-239" aria-hidden="true" tabindex="-1"></a>  "noise" threshold, $\Pr(\psi_r &gt; \psi^*)$ for a pre-specified cut (Chapter 3's criterion</span>
+<span id="cb2-240"><a href="#cb2-240" aria-hidden="true" tabindex="-1"></a>  gives a principled one). These are estimable precisely where the mean of ψ is not:</span>
+<span id="cb2-241"><a href="#cb2-241" aria-hidden="true" tabindex="-1"></a>  $\Pr(\psi_r &gt; \psi^*)$ stays near 1 whether the true value is 16 or 1,000, so it is stable</span>
+<span id="cb2-242"><a href="#cb2-242" aria-hidden="true" tabindex="-1"></a>  along the very ridge that makes the point estimate meaningless. This is the concrete,</span>
+<span id="cb2-243"><a href="#cb2-243" aria-hidden="true" tabindex="-1"></a>  reportable form of "the HRM *flags* these raters, it does not *measure* them."</span>
+<span id="cb2-244"><a href="#cb2-244" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Limit ψ claims to identified conditions.** Restrict the ANOVA and any "sensitivity"</span>
+<span id="cb2-245"><a href="#cb2-245" aria-hidden="true" tabindex="-1"></a>  language to raters whose ψ has a finite peak; discuss the misfit raters as cases the</span>
+<span id="cb2-246"><a href="#cb2-246" aria-hidden="true" tabindex="-1"></a>  HRM *flags*, not cases it *measures*.</span>
+<span id="cb2-247"><a href="#cb2-247" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-248"><a href="#cb2-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-249"><a href="#cb2-249" aria-hidden="true" tabindex="-1"></a><span class="fu">## What a reviewer will ask</span></span>
+<span id="cb2-250"><a href="#cb2-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-251"><a href="#cb2-251" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb2-252"><a href="#cb2-252" aria-hidden="true" tabindex="-1"></a><span class="fu">## What a reviewer will ask</span></span>
+<span id="cb2-253"><a href="#cb2-253" aria-hidden="true" tabindex="-1"></a>"In what sense is a reported ψ of 16–32 an *estimate*, given that the profile likelihood</span>
+<span id="cb2-254"><a href="#cb2-254" aria-hidden="true" tabindex="-1"></a>for these raters has no finite maximum? And what justifies averaging it across raters</span>
+<span id="cb2-255"><a href="#cb2-255" aria-hidden="true" tabindex="-1"></a>and entering it into an ANOVA?"</span>
+<span id="cb2-256"><a href="#cb2-256" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb2-257"><a href="#cb2-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-258"><a href="#cb2-258" aria-hidden="true" tabindex="-1"></a>This question is precise, and it is answerable — but only after the revisions above.</span>
+<span id="cb2-259"><a href="#cb2-259" aria-hidden="true" tabindex="-1"></a>Done well, the fix turns a vulnerability into a demonstration of methodological care: the</span>
+<span id="cb2-260"><a href="#cb2-260" aria-hidden="true" tabindex="-1"></a>diagnostics are run, ψ is found to be non-identified for those two raters, and it is reported</span>
+<span id="cb2-261"><a href="#cb2-261" aria-hidden="true" tabindex="-1"></a>accordingly. That is what careful Bayesian practice looks like, and it makes</span>
+<span id="cb2-262"><a href="#cb2-262" aria-hidden="true" tabindex="-1"></a>the misfit result *stronger*, not weaker — the HRM correctly flags raters whose</span>
+<span id="cb2-263"><a href="#cb2-263" aria-hidden="true" tabindex="-1"></a>variability the data cannot bound.</span>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Methodological Notes on Two Rater-Effect Simulation Studies</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
